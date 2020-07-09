@@ -52,3 +52,49 @@ td:hover {
   transform: translate(-50%, -50%);
 }
 
+.text {
+  position: absolute;
+  top: 50%;
+  font-weight: bolder;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+img {
+  width: 65px;
+  height: 65px;
+  z-index: 10;
+  margin-top: 10px;
+}
+
+.selection-container {
+  position: absolute;
+  top: 50%;
+  transform: translate(75vw, -50%);
+}
+
+.selection {
+  position: relative;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.12) 100%);
+  border: 2px solid white;
+  width: max-content;
+  padding: 2px 10px;
+  margin: 10px;
+}
+
+.selection:hover {
+  color: #59065f;
+  border: 2px solid #59065f;
+  transform: scale(1.1);
+}
+
+.verses {
+  font-size: 2em;
+  position: relative;
+  bottom: 20px;
+  font-family: 'Permanent Marker', cursive;
+  color: white;
+}
+
+
+

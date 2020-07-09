@@ -100,15 +100,14 @@ const GameBoard = (() => {
   return {
     player1Name,
     player2Name,
+    startGame,
   };
 })();
-
 
 const form = document.querySelector('#form');
 form.addEventListener('submit', function (e) {
   e.preventDefault();
   GameBoard.player1Name.player = e.target.player1.value
   GameBoard.player2Name.player = e.target.player2.value
-
-  document.querySelector('#form')
+  form.style.display = 'none'
 })
