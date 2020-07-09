@@ -1,16 +1,19 @@
-const GameBoard = () => {
+const GameBoard = (() => {
   let origBoard = '';
   // let playerName1 = document.querySelector('.name1').value
   // let playerName2 = document.querySelector('.name2').value
   const cells = document.querySelectorAll('.cell');
-  const form = document.querySelector('#form');
   const restart = document.querySelector('#restart')
   const huPlayer = 'O';
   const aiPlayer = 'X';
   const huPlayer2 = 'X'
+  const player = (playerName, token) => ({ playerName, token });
+  let player1Name = player('player1Name', 'x');
+  let player2Name = player('player1Name', '0');
   
   let playerTurn
   let playerName
+  console.log(player1Name)
   
   const winningCombs = [
     [0, 1, 2],
@@ -22,13 +25,6 @@ const GameBoard = () => {
     [0, 4, 8],
     [6, 4, 2]
   ];
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    const player1Name = e.target.player1.value
-    const player2Name = e.target.player2.value
-    restart.addEventListener('click', startGame(player1Name, player2Name))
-  })
   
   const turnClick = (e) => {
     const switchPlayer = playerTurn ? huPlayer : huPlayer2;
@@ -44,12 +40,12 @@ const GameBoard = () => {
   
   function checkWin(board, player, currentPlayer) {
     let turnPlayed = board.reduce((acc, sym, idx) =>
-      (sym === player) ? acc.concat(idx) : acc, []
+    (sym === player) ? acc.concat(idx) : acc, []
     );
     let gameWon = null;
     for (let [index, win] of winningCombs.entries()) {
       if (win.every(elem => turnPlayed.indexOf(elem) !== -1)) {
-        gameWon = {index: index, player: player, currentPlayer: currentPlayer}
+        gameWon = {index: index, player: player, currentPlayer: currentPlayer.player}
       }
     }
     return gameWon
@@ -85,7 +81,7 @@ const GameBoard = () => {
     document.getElementById(squareId).innerText = player;
   }
   
-  const startGame = (player1Name, player2Name) => {
+  const startGame = () => {
     document.querySelector('.endgame').style.display = 'none';
     origBoard = Array.from(Array(9).keys());
     cells.forEach(cell => {
@@ -99,7 +95,20 @@ const GameBoard = () => {
     playerTurn = !playerTurn
     playerName = !playerName
   }
- 
-}
+  
+  restart.addEventListener('click', startGame)
+  return {
+    player1Name,
+    player2Name,
+  };
+})();
 
-GameBoard()
+
+const form = document.querySelector('#form');
+form.addEventListener('submit', function (e) {
+  e.preventDefault();
+  GameBoard.player1Name.player = e.target.player1.value
+  GameBoard.player2Name.player = e.target.player2.value
+
+  document.querySelector('#form')
+})
