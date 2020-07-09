@@ -1,5 +1,9 @@
 let origBoard = '';
 const cells = document.querySelectorAll('.cell');
+let player1Name = document.querySelector('.name1').value
+let player2Name = document.querySelector('.name2').value
+
+console.log(player1Name)
 
 const winCombos = [
   [0, 1, 2],
