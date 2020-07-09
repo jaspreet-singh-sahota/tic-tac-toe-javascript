@@ -1,4 +1,4 @@
-const GameBoard = (player1Name, player2Name) => {
+const GameBoard = () => {
   let origBoard = '';
   // let playerName1 = document.querySelector('.name1').value
   // let playerName2 = document.querySelector('.name2').value
@@ -22,6 +22,13 @@ const GameBoard = (player1Name, player2Name) => {
     [0, 4, 8],
     [6, 4, 2]
   ];
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const player1Name = e.target.player1.value
+    const player2Name = e.target.player2.value
+    restart.addEventListener('click', startGame(player1Name, player2Name))
+  })
   
   const turnClick = (e) => {
     const switchPlayer = playerTurn ? huPlayer : huPlayer2;
@@ -78,7 +85,7 @@ const GameBoard = (player1Name, player2Name) => {
     document.getElementById(squareId).innerText = player;
   }
   
-  const startGame = () => {
+  const startGame = (player1Name, player2Name) => {
     document.querySelector('.endgame').style.display = 'none';
     origBoard = Array.from(Array(9).keys());
     cells.forEach(cell => {
@@ -92,13 +99,7 @@ const GameBoard = (player1Name, player2Name) => {
     playerTurn = !playerTurn
     playerName = !playerName
   }
-
-  restart.addEventListener('click', startGame) 
+ 
 }
 
-form.addEventListener('submit', function (e) {
-  e.preventDefault();
-  const player1Name = e.target.player1.value
-  const player2Name = e.target.player2.value
-  GameBoard(player1Name, player2Name)
-})
+GameBoard()
