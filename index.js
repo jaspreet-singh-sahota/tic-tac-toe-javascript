@@ -4,6 +4,9 @@ let player1Name = document.querySelector('.name1').value
 let player2Name = document.querySelector('.name2').value
 const huPlayer = 'O';
 const aiPlayer = 'X';
+const huPlayer2 = 'X'
+
+let playerTurn
 
 const gameBoard = [
   [0, 1, 2],
@@ -17,7 +20,10 @@ const gameBoard = [
 ];
 
 const turnClick = (e) => {
-  turn(e.target.id, huPlayer);
+  const switchPlayer = playerTurn ? huPlayer : huPlayer2;
+  turn(e.target.id, switchPlayer);
+  console.log(switchPlayer)
+  swapTurn()
 }
 
 const turn = (squareId, player) => {
@@ -33,6 +39,11 @@ const startGame = () => {
     cell.innerHTML = '';
     cell.addEventListener('click', turnClick, false);
   })
+}
+
+function swapTurn() {
+  playerTurn = !playerTurn
+  console.log(playerTurn)
 }
 
 
