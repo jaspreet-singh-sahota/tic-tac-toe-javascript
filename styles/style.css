@@ -1,14 +1,47 @@
+* {
+  box-sizing: border-box;
+  overflow-y: hidden;
+  margin: 0;
+  padding: 0;
+}
+
 .title {
   text-align: center;
 }
+
 table {
-  margin: auto;
-  border: 3px solid black;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 td {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.12) 100%);
   width: 100px;
   height: 100px;
-  background: linear-gradient(grey 0%, #555555 100%);
+  text-align: center;
+  vertical-align: middle;
+  font-size: 70px;
+  cursor: pointer;
+}
+
+td:hover {
+  border: 2px solid #59065f;
+  transform: scale(1.05)
+}
+
+.endgame {
+  display: none;
+  background-color: #59065f;
+  border-radius: 10px;
+  position: absolute;
+  width: 150px;
+  height: 100px;
+  top: 85%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
 }
 
