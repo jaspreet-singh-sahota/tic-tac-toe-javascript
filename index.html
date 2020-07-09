@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tic Tac Toe</title>
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/style.css">
-  </head>
-  <body>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Tic Tac Toe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+  <div id="particles-js">
     <h1 class="title">Tic Tac Toe</h1>
     <div class="selection-container">
       <div class="selection">
@@ -68,8 +71,16 @@
         <td class="cell" id="8"></td>
       </tr>
     </table>
-    <div class="endgame"></div>
+    <div class="endgame">
+      <div class="text">
+      </div>
+      <button id="restart" class="restart">Start Game</button>
+    </div>
+  </div>
 
-    <script src="index.js"></script>
-  </body>
+  <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script src="particle.js"></script>
+  <script src="index.js"></script>
+</body>
+
 </html>

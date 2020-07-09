@@ -7,6 +7,9 @@
 
 .title {
   text-align: center;
+  font-family: 'Permanent Marker', cursive;
+  color: #59065f;
+  font-size: 4rem;
 }
 
 table {
@@ -14,6 +17,14 @@ table {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.restart {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 td {
@@ -36,20 +47,28 @@ td:hover {
   background-color: #59065f;
   border-radius: 10px;
   position: absolute;
-  width: 150px;
+  width: 160px;
   height: 100px;
   top: 85%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  text-align: center;
   margin-top: -10px;
+}
+
+.text {
+  position: absolute;
+  width: 160px;
+  left: inherit;
+  top: 40%;
+  text-align: center;
+  transform: translate(-50%, -50%);
 }
 
 .form-userinput {
   position: absolute;
-  top: 15%;
+  top: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -88,6 +107,21 @@ img {
   bottom: 20px;
   font-family: 'Permanent Marker', cursive;
   color: white;
+}
+
+canvas {
+  display: block;
+}
+
+#particles-js {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #e5e5fd;
+  background-image: url("");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
 }
 
 

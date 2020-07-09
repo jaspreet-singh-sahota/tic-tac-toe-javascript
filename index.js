@@ -72,9 +72,8 @@ const GameBoard = (() => {
   }
   
   function endGameStatus(status) {
-    const result = document.querySelector('.endgame')
-    result.style.display = 'block';
-    result.textContent = `${status}`;
+    document.querySelector('.endgame').style.display = 'block';
+    const result = document.querySelector(('.text')).textContent = `${status}`;
     return result
   }
   
