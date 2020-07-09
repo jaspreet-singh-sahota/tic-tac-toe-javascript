@@ -1,0 +1,14 @@
+.title {
+  text-align: center;
+}
+table {
+  margin: auto;
+  border: 3px solid black;
+}
+
+td {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(grey 0%, #555555 100%);
+}
+
