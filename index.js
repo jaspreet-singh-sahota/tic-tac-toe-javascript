@@ -93,9 +93,7 @@ const GameBoard = (player1Name, player2Name) => {
     playerName = !playerName
   }
 
-  restart.addEventListener
-  
-  startGame(); 
+  restart.addEventListener('click', startGame) 
 }
 
 form.addEventListener('submit', function (e) {
