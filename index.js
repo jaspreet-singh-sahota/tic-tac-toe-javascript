@@ -25,6 +25,18 @@ const GameBoard = (() => {
     [0, 4, 8],
     [6, 4, 2]
   ];
+
+  const tokens = document.querySelectorAll('.selection')
+
+  tokens.forEach(token => {
+    token.addEventListener('click', (e) => {
+      token.querySelector('img')
+      const img1 = token.querySelector('img')
+      const tokenLink1 = img1.getAttribute('src')
+      const img2 = token.querySelector(':nth-child(3)')
+      const tokenLink2 = img2.getAttribute('src')
+    })
+  })
   
   const turnClick = (e) => {
     const switchPlayer = playerTurn ? huPlayer : huPlayer2;
