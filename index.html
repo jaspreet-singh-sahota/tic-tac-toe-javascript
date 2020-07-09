@@ -10,12 +10,13 @@
   <body>
     <h1 class="title">Tic Tac Toe</h1>
     <div class="form-userinput">
-      <form action="">
-        <input type="text" class="name1" placeholder="player1 name">
-        <input type="text" class="name2" placeholder="player2 name">
+      <form id="form">
+        <input type="text" class="name1" placeholder="player1 name" name='player1'>
+        <input type="text" class="name2" placeholder="player2 name" name='player2'>
+        <button>Start Game</button>
       </form>
     </div>
-    <button onclick="startGame()">Start Game</button>
+    <button onclick="startGame()">Restart</button>
     <table>
       <tr>
         <td class="cell" id="0"></td>

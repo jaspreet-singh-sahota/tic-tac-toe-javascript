@@ -2,6 +2,8 @@ let origBoard = '';
 const cells = document.querySelectorAll('.cell');
 let player1Name = document.querySelector('.name1').value
 let player2Name = document.querySelector('.name2').value
+const form = document.querySelector('#form')
+
 player1Name = 'jaspreet'
 player2Name = 'frank'
 const huPlayer = 'O';
@@ -22,6 +24,11 @@ const winningCombs = [
   [6, 4, 2]
 ];
 
+form.addEventListener('submit' , function(e) {
+  e.preventDefault();
+  console.log(e.target.elements.value)
+})
+
 const turnClick = (e) => {
   const switchPlayer = playerTurn ? huPlayer : huPlayer2;
   const currentPlayer = playerName ? player1Name : player2Name;
@@ -31,6 +38,7 @@ const turnClick = (e) => {
   if (gameWon) {
     gameOver(gameWon)
   }
+  checkTie()
 }
 
 function checkWin(board, player, currentPlayer) {
@@ -50,14 +58,24 @@ function gameOver(gameWon) {
   for (let index of winningCombs[gameWon.index]) {
     const result = document.getElementById(index);
     result.style.backgroundColor = gameWon.player = huPlayer ? 'blue' : 'red';
-    endGameStatus(gameWon);
+    const winner = `${gameWon.currentPlayer} won!`
+    endGameStatus(winner);
   }
 }
 
-function endGameStatus(gameWon) {
+function checkTie() {
+  const availableMoves = origBoard.filter(elem => typeof elem === 'number')
+  if (availableMoves.length == 0) {
+    const result = document.querySelectorAll('.cell');
+    result.forEach(cell => cell.style.backgroundColor = 'green')
+    endGameStatus("It's a Tie")
+  }
+}
+
+function endGameStatus(status) {
   const result = document.querySelector('.endgame');
   result.style.display = 'block';
-  result.textContent = `${gameWon.currentPlayer} won!`;
+  result.textContent = `${status}`;
   return result
 }
 
