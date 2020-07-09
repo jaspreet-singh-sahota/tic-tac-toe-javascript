@@ -72,7 +72,7 @@ const GameBoard = (() => {
   }
   
   function endGameStatus(status) {
-    const result = document.querySelector('.endgame');
+    const result = document.querySelector('.endgame')
     result.style.display = 'block';
     result.textContent = `${status}`;
     return result
