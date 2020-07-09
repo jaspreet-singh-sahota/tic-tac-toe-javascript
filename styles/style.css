@@ -124,5 +124,7 @@ canvas {
   background-position: 50% 50%;
 }
 
-
+.play-game {
+  left: 400px;
+}
 
