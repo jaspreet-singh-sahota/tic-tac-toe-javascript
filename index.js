@@ -8,7 +8,7 @@ const huPlayer2 = 'X'
 
 let playerTurn
 
-const gameBoard = [
+const winningCombs = [
   [0, 1, 2],
   [3, 4, 5],
   [6, 7, 8],
@@ -22,8 +22,31 @@ const gameBoard = [
 const turnClick = (e) => {
   const switchPlayer = playerTurn ? huPlayer : huPlayer2;
   turn(e.target.id, switchPlayer);
-  console.log(switchPlayer)
-  swapTurn()
+  swapTurn();
+  let gameWon = checkWin(origBoard, switchPlayer);
+  if (gameWon) {
+    gameOver(gameWon)
+  }
+}
+
+function checkWin(board, player) {
+  let turnPlayed = board.reduce((acc, sym, idx) =>
+    (sym === player) ? acc.concat(idx) : acc, []
+  );
+  let gameWon = null;
+  for (let [index, win] of winningCombs.entries()) {
+    if (win.every(elem => turnPlayed.indexOf(elem) !== -1)) {
+      gameWon = {index: index, player: player}
+    }
+  }
+  return gameWon
+}
+
+function gameOver(gameWon) {
+  for (let index of winningCombs[gameWon.index]) {
+    const result = document.getElementById(index)
+    result.style.backgroundColor = gameWon.player = huPlayer ? 'blue' : 'red';
+  }
 }
 
 const turn = (squareId, player) => {
@@ -37,7 +60,7 @@ const startGame = () => {
   cells.forEach(cell => {
     cell.style.removeProperty('background-color');
     cell.innerHTML = '';
-    cell.addEventListener('click', turnClick, false);
+    cell.addEventListener('click', turnClick, {once : true });
   })
 }
 
