@@ -1,19 +1,12 @@
 const GameBoard = (() => {
   let origBoard = '';
-  // let playerName1 = document.querySelector('.name1').value
-  // let playerName2 = document.querySelector('.name2').value
   const cells = document.querySelectorAll('.cell');
   const restart = document.querySelector('#restart')
-  const huPlayer = 'O';
-  const aiPlayer = 'X';
-  const huPlayer2 = 'X'
   const player = (playerName, token) => ({ playerName, token });
-  let player1Name = player('player1Name', 'x');
-  let player2Name = player('player1Name', '0');
-  
+  let player1Name = player('player1Name', 'token');
+  let player2Name = player('player1Name', 'token');
   let playerTurn
   let playerName
-  console.log(player1Name)
   
   const winningCombs = [
     [0, 1, 2],
@@ -25,21 +18,9 @@ const GameBoard = (() => {
     [0, 4, 8],
     [6, 4, 2]
   ];
-
-  const tokens = document.querySelectorAll('.selection')
-
-  tokens.forEach(token => {
-    token.addEventListener('click', (e) => {
-      token.querySelector('img')
-      const img1 = token.querySelector('img')
-      const tokenLink1 = img1.getAttribute('src')
-      const img2 = token.querySelector(':nth-child(3)')
-      const tokenLink2 = img2.getAttribute('src')
-    })
-  })
   
   const turnClick = (e) => {
-    const switchPlayer = playerTurn ? huPlayer : huPlayer2;
+    const switchPlayer = playerTurn ? player1Name['token'] : player2Name['token'];
     const currentPlayer = playerName ? player1Name : player2Name;
     turn(e.target.id, switchPlayer, currentPlayer);
     swapTurn();
@@ -48,6 +29,14 @@ const GameBoard = (() => {
       gameOver(gameWon)
     }
     checkTie()
+  }
+
+  const turn = (squareId, player) => {
+    origBoard[squareId] = player;
+    const input = document.createElement('img')
+    input.setAttribute('src', player)
+    const cell = document.getElementById(squareId)
+    cell.appendChild(input)
   }
   
   function checkWin(board, player, currentPlayer) {
@@ -66,7 +55,8 @@ const GameBoard = (() => {
   function gameOver(gameWon) {
     for (let index of winningCombs[gameWon.index]) {
       const result = document.getElementById(index);
-      result.style.backgroundColor = gameWon.player = huPlayer ? 'blue' : 'red';
+      cells.forEach(cell => cell.removeEventListener('click', turnClick, false));
+      result.style.backgroundColor = gameWon.player = player1Name['token'] ? 'blue' : 'red';
       const winner = `${gameWon.currentPlayer} won!`
       endGameStatus(winner);
     }
@@ -88,18 +78,13 @@ const GameBoard = (() => {
     return result
   }
   
-  const turn = (squareId, player) => {
-    origBoard[squareId] = player;
-    document.getElementById(squareId).innerText = player;
-  }
-  
   const startGame = () => {
     document.querySelector('.endgame').style.display = 'none';
     origBoard = Array.from(Array(9).keys());
     cells.forEach(cell => {
       cell.style.removeProperty('background-color');
       cell.innerHTML = '';
-      cell.addEventListener('click', turnClick, {once : true });
+      cell.addEventListener('click', turnClick, {once : true});
     })
   }
   
@@ -122,4 +107,15 @@ form.addEventListener('submit', function (e) {
   GameBoard.player1Name.player = e.target.player1.value
   GameBoard.player2Name.player = e.target.player2.value
   form.style.display = 'none'
+})
+
+const tokens = document.querySelectorAll('.selection')
+tokens.forEach(token => {
+  token.addEventListener('click', (e) => {
+    token.querySelector('img');
+    const img1 = token.querySelector('img');
+    GameBoard.player1Name.token = img1.getAttribute('src');
+    const img2 = token.querySelector(':nth-child(3)');
+    GameBoard.player2Name.token = img2.getAttribute('src');
+  })
 })
