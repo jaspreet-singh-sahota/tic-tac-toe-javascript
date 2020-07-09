@@ -2,11 +2,14 @@ let origBoard = '';
 const cells = document.querySelectorAll('.cell');
 let player1Name = document.querySelector('.name1').value
 let player2Name = document.querySelector('.name2').value
+player1Name = 'jaspreet'
+player2Name = 'frank'
 const huPlayer = 'O';
 const aiPlayer = 'X';
 const huPlayer2 = 'X'
 
 let playerTurn
+let playerName
 
 const winningCombs = [
   [0, 1, 2],
@@ -21,22 +24,23 @@ const winningCombs = [
 
 const turnClick = (e) => {
   const switchPlayer = playerTurn ? huPlayer : huPlayer2;
-  turn(e.target.id, switchPlayer);
+  const currentPlayer = playerName ? player1Name : player2Name;
+  turn(e.target.id, switchPlayer, currentPlayer);
   swapTurn();
-  let gameWon = checkWin(origBoard, switchPlayer);
+  let gameWon = checkWin(origBoard, switchPlayer, currentPlayer);
   if (gameWon) {
     gameOver(gameWon)
   }
 }
 
-function checkWin(board, player) {
+function checkWin(board, player, currentPlayer) {
   let turnPlayed = board.reduce((acc, sym, idx) =>
     (sym === player) ? acc.concat(idx) : acc, []
   );
   let gameWon = null;
   for (let [index, win] of winningCombs.entries()) {
     if (win.every(elem => turnPlayed.indexOf(elem) !== -1)) {
-      gameWon = {index: index, player: player}
+      gameWon = {index: index, player: player, currentPlayer: currentPlayer}
     }
   }
   return gameWon
@@ -44,9 +48,17 @@ function checkWin(board, player) {
 
 function gameOver(gameWon) {
   for (let index of winningCombs[gameWon.index]) {
-    const result = document.getElementById(index)
+    const result = document.getElementById(index);
     result.style.backgroundColor = gameWon.player = huPlayer ? 'blue' : 'red';
+    endGameStatus(gameWon);
   }
+}
+
+function endGameStatus(gameWon) {
+  const result = document.querySelector('.endgame');
+  result.style.display = 'block';
+  result.textContent = `${gameWon.currentPlayer} won!`;
+  return result
 }
 
 const turn = (squareId, player) => {
@@ -66,7 +78,7 @@ const startGame = () => {
 
 function swapTurn() {
   playerTurn = !playerTurn
-  console.log(playerTurn)
+  playerName = !playerName
 }
 
 
