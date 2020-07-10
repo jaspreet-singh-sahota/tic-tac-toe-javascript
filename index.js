@@ -2,7 +2,6 @@ const GameBoard = (() => {
   let origBoard = '';
   const cells = document.querySelectorAll('.cell');
   const restart = document.querySelectorAll('.restart')
-  console.log(restart)
   const player = (playerName, token) => ({ playerName, token });
   let player1Name = player('player1Name', 'token');
   let player2Name = player('player1Name', 'token');

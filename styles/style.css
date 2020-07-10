@@ -66,12 +66,6 @@ td:hover {
   transform: translate(-50%, -50%);
 }
 
-.form-userinput {
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
 
 img {
   width: 65px;
@@ -98,7 +92,7 @@ img {
 .selection:hover {
   color: #59065f;
   border: 2px solid #59065f;
-  transform: scale(1.1);
+  transform: scale(1.07);
 }
 
 .verses {
@@ -126,5 +120,38 @@ canvas {
 
 .play-game {
   left: 400px;
+}
+
+.form-userinput {
+  position: absolute;
+  top: 20%;
+  left: 53.55%;
+  transform: translate(-50%, -50%);
+}
+
+.username {
+  border: 0;
+  background: transparent;
+  border-bottom: 2px solid #59065f;
+  font-size: 1.3em;
+  margin: 0 50px;
+}
+
+input[type=text], select {
+  width: 25.5%;
+  padding-left: 12px;
+}
+
+input[type=text]:hover {
+  border: none;
+  border-bottom: 3px solid #59065f;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+}
+
+.username-submit-btn {
+  display: none;
 }
 
