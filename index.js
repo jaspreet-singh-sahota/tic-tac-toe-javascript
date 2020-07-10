@@ -30,6 +30,19 @@ const GameBoard = (() => {
   const arr = new Array(selections.length).fill(false)
    
   selections.forEach((selected, index) => selected.addEventListener('click', () => {
+    arr.forEach((elem, index) => {
+      if (elem) {
+        selections[index].style.border = '2px solid white'
+        selections[index].style.removeProperty('background-image')
+        selections[index].style.removeProperty('transform')
+        arr.forEach((_,idx) => arr[idx] = false)
+      }
+    }) 
+
+    arr[index] = true;
+    selected.style.border = '2px solid #59065f'
+    selected.style.backgroundImage = 'linear-gradient(to left, #bdbbbe 0%, #9d9ea3 100%), radial-gradient(88% 271%, rgba(255, 255, 255, 0.25) 0%, rgba(254, 254, 254, 0.25) 1%, rgba(0, 0, 0, 0.25) 100%), radial-gradient(50% 100%, rgba(255, 255, 255, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%)'
+    selected.style.transform = 'scale(1.1)'
     
   }))
 
