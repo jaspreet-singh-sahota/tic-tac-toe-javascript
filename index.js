@@ -5,6 +5,7 @@ const GameBoard = (() => {
   const player = (playerName, token) => ({ playerName, token });
   const player1Name = player('player', 'token');
   const player2Name = player('player', 'token');
+  const alert = document.querySelector('.invalid')
   let playerTurn;
   let playerName;
 
@@ -18,6 +19,12 @@ const GameBoard = (() => {
     [0, 4, 8],
     [6, 4, 2],
   ];
+  
+  cells.forEach(cell => cell.addEventListener('click', () => {
+    if (player1Name.player === undefined) {
+      alert.style.display = 'block'
+    }
+  }))
 
   function displayPlayer(player) {
     const playerName = document.querySelector('.player-text');
@@ -105,6 +112,7 @@ const GameBoard = (() => {
 
   const startGame = () => {
     document.querySelector('.endgame').style.display = 'none';
+    alert.style.display = 'none'
     origBoard = Array.from(Array(9).keys());
     cells.forEach(cell => {
       cell.style.removeProperty('background-color');

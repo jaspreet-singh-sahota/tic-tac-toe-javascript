@@ -58,7 +58,8 @@ td:hover {
   color: #59065f;
 }
 
-.endgame {
+
+.alert {
   display: none;
   background-color: #59065f;
   border-radius: 10px;
@@ -80,6 +81,12 @@ td:hover {
   top: 40%;
   text-align: center;
   transform: translate(-50%, -50%);
+}
+
+.name-required {
+  font-size: 1em;
+  width: 150px;
+  top: 50%;
 }
 
 img {
@@ -107,7 +114,6 @@ img {
 .selection:hover {
   border: 2px solid #59065f;
   transform: scale(1.07);
-
   /* background-image: linear-gradient(315deg, #fce043 0%, #fb7ba2 74%);
   background-image: linear-gradient(315deg, #fba8a4 0%, #dad2f3 74%);
   background-image: linear-gradient(315deg, #fc9842 0%, #fe5f75 74%);
