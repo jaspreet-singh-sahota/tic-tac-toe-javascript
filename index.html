@@ -13,6 +13,11 @@
 <body>
   <div id="particles-js">
     <h1 class="title">Tic Tac Toe</h1>
+    <div class="mode">
+      <div><span>Multiplayer</span></div>
+      <div><span>Human VS CPU</span></div>
+      <div><span>human VS AI</span></div>
+    </div>
     <div class="selection-container">
       <div class="selection">
         <img src="https://clipart.info/images/ccovers/1496248997Cristiano-Ronaldo-CR7-PNG-WPAP-Toni-Agustian.png" />
@@ -47,9 +52,9 @@
       </div>
     </div>
     <div class="form-userinput">
-      <form id="form">
-        <input type="text" class="username" placeholder="Player1 Name" name='player1'>
-        <input type="text" class="username" placeholder="Player2 Name" name='player2'>
+      <form id="form" autocomplete="off">
+        <input type="text" class="username user-input1" placeholder="Player1 Name" name='player1'>
+        <input type="text" class="username user-input2" placeholder="Player2 Name" name='player2'>
         <button class="username-submit-btn">Enter Username</button>
       </form>
     </div>
