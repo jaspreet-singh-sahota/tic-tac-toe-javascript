@@ -19,13 +19,6 @@ table {
   transform: translate(-50%, -50%);
 }
 
-.restart {
-  position: absolute;
-  top: 65%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
 
 td {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.12) 100%);
@@ -40,6 +33,29 @@ td {
 td:hover {
   border: 2px solid #59065f;
   transform: scale(1.05)
+}
+
+.restart {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.mode-type {
+  position: absolute;
+  top: 50%;
+  left: 17%;
+  transform: translate(-50%, -50%);
+}
+
+.mode {
+  padding: 20% 0;
+  font-size: 1.5rem;
+  letter-spacing: 0.2em;
+  font-family:  'Permanent Marker', cursive;
+  color: #59065f;
 }
 
 .endgame {
