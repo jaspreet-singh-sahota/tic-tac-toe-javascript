@@ -25,11 +25,17 @@ const GameBoard = (() => {
     const currentPlayer = playerName ? player1Name : player2Name;
     turn(e.target.id, switchPlayer, currentPlayer);
     swapTurn();
+    displayPlayer(currentPlayer)
     let gameWon = checkWin(origBoard, switchPlayer, currentPlayer);
     if (gameWon) {
       return gameOver(gameWon)
     }
     checkTie()
+  }
+
+  function displayPlayer(player) {
+    const playername = document.querySelector('.player-text')
+    playername.textContent = player.player
   }
 
   const turn = (squareId, player) => {

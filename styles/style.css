@@ -183,6 +183,16 @@ input:focus, textarea:focus, select:focus {
   display: none;
 }
 
+.player-name {
+  position: absolute;
+  left: 50%;
+  top: 23%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5em;
+  /* font-family: 'Permanent Marker', cursive; */
+  color: #555555;
+}
+
 
 
 
@@ -191,7 +201,7 @@ input:focus, textarea:focus, select:focus {
 
 /* .cursor {
 } */
-.cursor	i {
+/* .cursor	i {
 	width: 1px;
 	height: 80%;
 	background-color: gray;
@@ -210,4 +220,4 @@ input:focus, textarea:focus, select:focus {
 @keyframes blink {
 	from { opacity: 1; }
 	to { opacity: 0; }
-}
+} */
