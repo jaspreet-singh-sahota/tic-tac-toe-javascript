@@ -36,6 +36,7 @@ td:hover {
 }
 
 .restart {
+  width: 83.5px;
   position: absolute;
   top: 65%;
   left: 50%;

@@ -20,12 +20,12 @@ const GameBoard = (() => {
   ];
   
   const turnClick = (e) => {
-    const switchPlayer = playerTurn ? (player1Name['token'] == 'token' ? 'https://img.icons8.com/color/160/000000/deadpool.png'
-      : player1Name['token']) : (player2Name['token'] == 'token' ? 'https://img.icons8.com/color/160/000000/spiderman-head.png' : player2Name['token']);
     const currentPlayer = playerName ? player1Name : player2Name;
+    const switchPlayer = playerTurn ? (player1Name['token'] == 'token' ? 'https://img.icons8.com/color/160/000000/deadpool.png'
+    : player1Name['token']) : (player2Name['token'] == 'token' ? 'https://img.icons8.com/color/160/000000/spiderman-head.png' : player2Name['token']);
+    displayPlayer(currentPlayer)
     turn(e.target.id, switchPlayer, currentPlayer);
     swapTurn();
-    displayPlayer(currentPlayer)
     let gameWon = checkWin(origBoard, switchPlayer, currentPlayer);
     if (gameWon) {
       return gameOver(gameWon)
@@ -34,8 +34,8 @@ const GameBoard = (() => {
   }
 
   function displayPlayer(player) {
-    const playername = document.querySelector('.player-text')
-    playername.textContent = player.player
+    const playerName = document.querySelector('.player-text')
+    playerName.textContent = `${player.player}'s turn`
   }
 
   const turn = (squareId, player) => {
@@ -62,6 +62,7 @@ const GameBoard = (() => {
   function gameOver(gameWon) {
     for (let index of winningCombs[gameWon.index]) {
       const result = document.getElementById(index);
+      document.querySelector('.player-text').textContent = ''
       cells.forEach(cell => cell.removeEventListener('click', turnClick, false));
       result.style.backgroundColor = gameWon.player = player1Name['token'] ? '#4afa05' : '#57DDF3';
       const winner = `${gameWon.currentPlayer} won!`
@@ -78,6 +79,7 @@ const GameBoard = (() => {
         cell.style.background = 'linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.32) 100%)'
         cell.style.border = '2px solid #59065f'
       })
+      document.querySelector('.player-text').textContent = ''
       endGameStatus("It's a Tie")
     }
   }
@@ -124,6 +126,8 @@ form.addEventListener('submit', function (e) {
   if(e.target.player2.value  == ''){
     GameBoard.player2Name.player = 'Player2'
   }
+  const playerName = document.querySelector('.player-text')
+  playerName.textContent = `${e.target.player1.value == '' ? 'Player1' : e.target.player1.value}'s turn`
   form.style.display = 'none'
   GameBoard.startGame()
 })
