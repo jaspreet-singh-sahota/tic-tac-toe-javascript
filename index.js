@@ -56,7 +56,7 @@ const GameBoard = (() => {
     for (let index of winningCombs[gameWon.index]) {
       const result = document.getElementById(index);
       cells.forEach(cell => cell.removeEventListener('click', turnClick, false));
-      result.style.backgroundColor = gameWon.player = player1Name['token'] ? 'blue' : 'red';
+      result.style.backgroundColor = gameWon.player = player1Name['token'] ? '#4afa05' : '#57DDF3';
       const winner = `${gameWon.currentPlayer} won!`
       endGameStatus(winner);
     }
@@ -66,7 +66,10 @@ const GameBoard = (() => {
     const availableMoves = origBoard.filter(elem => typeof elem === 'number')
     if (availableMoves.length == 0) {
       const result = document.querySelectorAll('.cell');
-      result.forEach(cell => cell.style.backgroundColor = 'green')
+      result.forEach(cell => {
+        cell.style.background = 'linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.32) 100%)'
+        cell.style.border = '2px solid #59065f'
+      })
       endGameStatus("It's a Tie")
     }
   }
@@ -82,6 +85,8 @@ const GameBoard = (() => {
     origBoard = Array.from(Array(9).keys());
     cells.forEach(cell => {
       cell.style.removeProperty('background-color');
+      cell.style.removeProperty('background');
+      cell.style.removeProperty('border')
       cell.innerHTML = '';
       cell.addEventListener('click', turnClick, {once : true});
     })
