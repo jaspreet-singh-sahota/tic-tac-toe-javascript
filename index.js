@@ -27,7 +27,7 @@ const GameBoard = (() => {
     swapTurn();
     let gameWon = checkWin(origBoard, switchPlayer, currentPlayer);
     if (gameWon) {
-      gameOver(gameWon)
+      return gameOver(gameWon)
     }
     checkTie()
   }
@@ -66,6 +66,7 @@ const GameBoard = (() => {
   function checkTie() {
     const availableMoves = origBoard.filter(elem => typeof elem === 'number')
     if (availableMoves.length == 0) {
+
       const result = document.querySelectorAll('.cell');
       result.forEach(cell => {
         cell.style.background = 'linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.32) 100%)'
