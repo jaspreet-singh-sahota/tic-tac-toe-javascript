@@ -3,8 +3,8 @@ const GameBoard = (() => {
   const cells = document.querySelectorAll('.cell');
   const restart = document.querySelectorAll('.restart')
   const player = (playerName, token) => ({ playerName, token });
-  let player1Name = player('player1Name', 'token');
-  let player2Name = player('player1Name', 'token');
+  let player1Name = player('player', 'token');
+  let player2Name = player('player', 'token');
   let playerTurn
   let playerName
   
@@ -110,7 +110,14 @@ form.addEventListener('submit', function (e) {
   e.preventDefault();
   GameBoard.player1Name.player = e.target.player1.value
   GameBoard.player2Name.player = e.target.player2.value
+  if(e.target.player1.value  == ''){
+    GameBoard.player1Name.player = 'Player1'
+  }
+  if(e.target.player2.value  == ''){
+    GameBoard.player2Name.player = 'Player2'
+  }
   form.style.display = 'none'
+  GameBoard.startGame()
 })
 
 const tokens = document.querySelectorAll('.selection')
