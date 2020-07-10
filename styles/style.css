@@ -184,3 +184,30 @@ input:focus, textarea:focus, select:focus {
 }
 
 
+
+
+
+
+
+/* .cursor {
+} */
+.cursor	i {
+	width: 1px;
+	height: 80%;
+	background-color: gray;
+	left: 5px;
+	top: 10%;
+	animation-name: blink;
+	animation-duration: 800ms;
+	animation-iteration-count: infinite;
+	opacity: 1;
+}
+
+.cursor input:focus + i {
+	display: none;
+}
+
+@keyframes blink {
+	from { opacity: 1; }
+	to { opacity: 0; }
+}

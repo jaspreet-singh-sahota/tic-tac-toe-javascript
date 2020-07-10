@@ -20,7 +20,8 @@ const GameBoard = (() => {
   ];
   
   const turnClick = (e) => {
-    const switchPlayer = playerTurn ? player1Name['token'] : player2Name['token'];
+    const switchPlayer = playerTurn ? (player1Name['token'] == 'token' ? 'https://img.icons8.com/color/160/000000/deadpool.png'
+      : player1Name['token']) : (player2Name['token'] == 'token' ? 'https://img.icons8.com/color/160/000000/spiderman-head.png' : player2Name['token']);
     const currentPlayer = playerName ? player1Name : player2Name;
     turn(e.target.id, switchPlayer, currentPlayer);
     swapTurn();
