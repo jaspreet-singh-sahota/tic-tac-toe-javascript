@@ -19,20 +19,6 @@ const GameBoard = (() => {
     [6, 4, 2],
   ];
 
-  const turnClick = (e) => {
-    const currentPlayer = playerName ? player1Name : player2Name;
-    const switchPlayer = playerTurn ? (player1Name.token === 'token' ? 'https://img.icons8.com/color/160/000000/deadpool.png'
-      : player1Name.token) : (player2Name.token === 'token' ? 'https://img.icons8.com/color/160/000000/spiderman-head.png' : player2Name.token);
-    displayPlayer(currentPlayer);
-    turn(e.target.id, switchPlayer, currentPlayer);
-    swapTurn();
-    const gameWon = checkWin(origBoard, switchPlayer, currentPlayer);
-    if (gameWon) {
-      return gameOver(gameWon);
-    }
-    checkTie();
-  };
-
   function displayPlayer(player) {
     const playerName = document.querySelector('.player-text');
     playerName.textContent = `${player.player}'s turn`;
@@ -47,9 +33,12 @@ const GameBoard = (() => {
   };
 
   function checkWin(board, player, currentPlayer) {
-    const turnPlayed = board.reduce((acc, sym, idx) => ((sym === player) ? acc.concat(idx) : acc), []);
+    const turnPlayed = board.reduce((acc, sym, idx) => ((sym === player)
+      ? acc.concat(idx) : acc), []);
     let gameWon = null;
-    for (const [index, win] of winningCombs.entries()) {
+    /* eslint-disable */
+      for (const [index, win] of winningCombs.entries()) {
+      /* eslint-enable */
       if (win.every(elem => turnPlayed.indexOf(elem) !== -1)) {
         gameWon = { index, player, currentPlayer: currentPlayer.player };
       }
@@ -57,15 +46,12 @@ const GameBoard = (() => {
     return gameWon;
   }
 
-  function gameOver(gameWon) {
-    for (const index of winningCombs[gameWon.index]) {
-      const result = document.getElementById(index);
-      document.querySelector('.player-text').textContent = '';
-      cells.forEach(cell => cell.removeEventListener('click', turnClick, false));
-      result.style.backgroundColor = gameWon.player = player1Name.token ? '#4afa05' : '#57DDF3';
-      const winner = `${gameWon.currentPlayer} won!`;
-      endGameStatus(winner);
-    }
+  function endGameStatus(status) {
+    document.querySelector('.endgame').style.display = 'block';
+    /* eslint-disable */
+    const result = document.querySelector(('.text')).textContent = `${status}`;
+    /* eslint-enable */
+    return result;
   }
 
   function checkTie() {
@@ -81,11 +67,41 @@ const GameBoard = (() => {
     }
   }
 
-  function endGameStatus(status) {
-    document.querySelector('.endgame').style.display = 'block';
-    const result = document.querySelector(('.text')).textContent = `${status}`;
-    return result;
+  function swapTurn() {
+    playerTurn = !playerTurn;
+    playerName = !playerName;
   }
+
+  function gameOver(gameWon) {
+    /* eslint-disable */
+    for (const index of winningCombs[gameWon.index]) {
+      /* eslint-enable */
+      const result = document.getElementById(index);
+      document.querySelector('.player-text').textContent = '';
+      /* eslint-disable */
+      cells.forEach(cell => cell.removeEventListener('click', turnClick, false));
+      result.style.backgroundColor = gameWon.player = player1Name.token ? '#4afa05' : '#57DDF3';
+      /* eslint-enable */
+      const winner = `${gameWon.currentPlayer} won!`;
+      endGameStatus(winner);
+    }
+  }
+
+  const turnClick = (e) => {
+    const currentPlayer = playerName ? player2Name : player1Name;
+    /* eslint-disable */
+    const switchPlayer = playerTurn ? (player2Name.token === 'token' ? 'https://img.icons8.com/color/160/000000/deadpool.png'
+      : player2Name.token) : (player1Name.token === 'token' ? 'https://img.icons8.com/color/160/000000/spiderman-head.png' : player1Name.token);
+    /* eslint-enable */
+    displayPlayer(currentPlayer);
+    turn(e.target.id, switchPlayer, currentPlayer);
+    swapTurn();
+    const gameWon = checkWin(origBoard, switchPlayer, currentPlayer);
+    if (gameWon) {
+      return gameOver(gameWon);
+    }
+    return checkTie();
+  };
 
   const startGame = () => {
     document.querySelector('.endgame').style.display = 'none';
@@ -98,11 +114,6 @@ const GameBoard = (() => {
       cell.addEventListener('click', turnClick, { once: true });
     });
   };
-
-  function swapTurn() {
-    playerTurn = !playerTurn;
-    playerName = !playerName;
-  }
 
   restart.forEach(btn => btn.addEventListener('click', startGame));
   return {
@@ -131,7 +142,7 @@ form.addEventListener('submit', (e) => {
 
 const tokens = document.querySelectorAll('.selection');
 tokens.forEach(token => {
-  token.addEventListener('click', (e) => {
+  token.addEventListener('click', () => {
     token.querySelector('img');
     const img1 = token.querySelector('img');
     GameBoard.player1Name.token = img1.getAttribute('src');
