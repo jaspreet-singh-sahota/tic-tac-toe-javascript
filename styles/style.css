@@ -3,6 +3,7 @@
   overflow-y: hidden;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 .title {
@@ -21,11 +22,10 @@ table {
 
 td {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.12) 100%);
-  width: 100px;
-  height: 100px;
+  width: 7.8vw;
+  height: 7.8vw;
   text-align: center;
   vertical-align: middle;
-  font-size: 70px;
   cursor: pointer;
 }
 
@@ -35,12 +35,15 @@ td:hover {
 }
 
 .restart {
-  width: 83.5px;
+  width: 50%;
+  padding: 1.8%;
   position: absolute;
-  top: 65%;
+  top: 67%;
   left: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 5px;
+  background-color: #e5e5fd;
+  font-weight: bold;
 }
 
 .mode-type {
@@ -58,25 +61,23 @@ td:hover {
   color: #59065f;
 }
 
-
 .alert {
   display: none;
   background-color: #59065f;
   border-radius: 10px;
   position: absolute;
   width: 160px;
-  height: 100px;
+  height: 15%;
   top: 85%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  margin-top: -10px;
 }
 
 .text {
   position: absolute;
-  width: 160px;
+  width: 80%;
   left: inherit;
   top: 40%;
   text-align: center;
@@ -85,43 +86,51 @@ td:hover {
 }
 
 .name-required {
-  width: 150px;
+  width: 100%;
   top: 50%;
 }
 
+.img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  height: 100%;
+}
 img {
-  width: 65px;
-  height: 65px;
+  width: 70%;
+  height: auto;
   z-index: 10;
-  margin-top: 10px;
 }
 
 .selection-container {
   position: absolute;
-  top: 50%;
+  height: 100vh;
+  top: 61%;
   transform: translate(75vw, -50%);
+  padding-left: 10px ;
 }
 
 .selection {
-  position: relative;
+  display: flex;
+  height: 13%;
+  width: 27%;
+  justify-content: center;
+  align-items: center;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.12) 100%);
   border: 2px solid white;
-  width: max-content;
-  padding: 2px 10px;
-  margin: 10px;
+  margin: 1%;
 }
 
 .selection:hover {
   border: 2px solid #59065f;
   transform: scale(1.07);
   background-blend-mode: normal, lighten, soft-light;
-
 }
 
 .verses {
   font-size: 2em;
   position: relative;
-  bottom: 20px;
   font-family: 'Permanent Marker', cursive;
   color: white;
 }
@@ -139,10 +148,6 @@ canvas {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 50% 50%;
-}
-
-.play-game {
-  left: 400px;
 }
 
 .form-userinput {
@@ -187,31 +192,5 @@ select:focus {
   top: 23%;
   transform: translate(-50%, -50%);
   font-size: 1.5em;
-
-  /* font-family: 'Permanent Marker', cursive; */
   color: #555;
 }
-
-/* .cursor {
-} */
-
-/* .cursor	i {
-	width: 1px;
-	height: 80%;
-	background-color: gray;
-	left: 5px;
-	top: 10%;
-	animation-name: blink;
-	animation-duration: 800ms;
-	animation-iteration-count: infinite;
-	opacity: 1;
-}
-
-.cursor input:focus + i {
-	display: none;
-}
-
-@keyframes blink {
-	from { opacity: 1; }
-	to { opacity: 0; }
-} */

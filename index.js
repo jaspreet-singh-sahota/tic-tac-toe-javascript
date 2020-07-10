@@ -174,7 +174,7 @@ tokens.forEach(token => {
     token.querySelector('img');
     const img1 = token.querySelector('img');
     GameBoard.player1Name.token = img1.getAttribute('src');
-    const img2 = token.querySelector(':nth-child(3)');
+    const img2 = token.querySelector('.second-img');
     GameBoard.player2Name.token = img2.getAttribute('src');
   });
 });
