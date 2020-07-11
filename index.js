@@ -1,5 +1,6 @@
 const GameBoard = (() => {
   let origBoard = '';
+  const form = document.querySelector('#form');
   const cells = document.querySelectorAll('.cell');
   const restart = document.querySelectorAll('.restart');
   const alert = document.querySelector('.invalid');
@@ -9,7 +10,7 @@ const GameBoard = (() => {
   const selectedMode = { multiplayer: false, aiEasyMode: false, aiHardMode: false}
   const player1Name = player('player', 'X', 'https://img.icons8.com/color/160/000000/deadpool.png');
   const player2Name = player('player', 'O', 'https://img.icons8.com/color/160/000000/spiderman-head.png');
-  let playerName = player1Name.player;
+  let playerName;
   
   const winningCombs = [
     [0, 1, 2],
@@ -70,7 +71,6 @@ const GameBoard = (() => {
     const img2 = category.querySelector('.second-img');
     const link1 = GameBoard.player1Name.imgLink = img1.getAttribute('src');
     const link2 = GameBoard.player2Name.imgLink = img2.getAttribute('src');
-    
     removeImageProperty()
 
     if (origBoard.includes('X') || origBoard.includes('O')) {
@@ -82,16 +82,17 @@ const GameBoard = (() => {
         }
       })
     }
-    
     addImageProperty(category, index);})
   );
   
-  const displayPlayer = (player) => {
+  const displayPlayer = (currentPlayer) => {
+    console.log(currentPlayer)
     const playerName = document.querySelector('.player-text');
-    playerName.textContent = `${player.player}'s turn`;
+    playerName.textContent = `${currentPlayer.player}'s turn`;
   }
   
   const turn = (squareId, currentPlayer) => {
+    console.log(currentPlayer)
     origBoard[squareId] = currentPlayer.token;
     const input = document.createElement('img');
     input.setAttribute('src', currentPlayer.imgLink);
@@ -100,6 +101,7 @@ const GameBoard = (() => {
   };
   
   const checkWin = (board, currentPlayer) => {
+    console.log(currentPlayer)
     const player = currentPlayer.token
     const turnPlayed = board.reduce((acc, token, idx) => ((token === currentPlayer.token)
     ? acc.concat(idx) : acc), []);
@@ -149,20 +151,23 @@ const GameBoard = (() => {
       cells.forEach(cell => cell.removeEventListener('click', turnClick, false));
       result.style.backgroundColor = gameWon.player === 'X' ? '#4afa05' : '#57DDF3';
       /* eslint-enable */
+      console.log(gameWon)
       const winner = `${gameWon.currentPlayer} won!`;
       endGameStatus(winner);
     }
   }
   
   const turnClick = (e) => {
-    const currentPlayer = playerName ? player1Name : player2Name; 
-    displayPlayer(currentPlayer);
+    const currentPlayer = playerName ? player2Name : player1Name;
+    const NextTurn = playerName ? player1Name : player2Name
+    console.log(playerName)
+    displayPlayer(NextTurn);
     turn(e.target.id, currentPlayer);
-    swapTurn();
     const gameWon = checkWin(origBoard, currentPlayer);
     if (gameWon) {
       return gameOver(gameWon);
     }
+    swapTurn();
     return checkTie();
   };
   
@@ -179,7 +184,18 @@ const GameBoard = (() => {
     });
   };
 
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    GameBoard.player1Name.player = e.target.player1.value;
+    GameBoard.player2Name.player = e.target.player2.value;
+    const playerName = document.querySelector('.player-text');
+    playerName.textContent = `${e.target.player1.value}'s turn`;
+    form.style.display = 'none';
+    GameBoard.startGame();
+  });
+
   restart.forEach(btn => btn.addEventListener('click', startGame));
+
   return {
     player1Name,
     player2Name,
@@ -187,15 +203,5 @@ const GameBoard = (() => {
   };
 })();
 
-const form = document.querySelector('#form');
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  GameBoard.player1Name.player = e.target.player1.value;
-  GameBoard.player2Name.player = e.target.player2.value;
-  const playerName = document.querySelector('.player-text');
-  playerName.textContent = `${e.target.player1.value}'s turn`;
-  form.style.display = 'none';
-  GameBoard.startGame();
-});
 
 
