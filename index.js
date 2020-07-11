@@ -1,15 +1,15 @@
 const GameBoard = (() => {
   let origBoard = '';
-  let playerName;
   const cells = document.querySelectorAll('.cell');
   const restart = document.querySelectorAll('.restart');
   const alert = document.querySelector('.invalid');
-  const selections = document.querySelectorAll('.selection');
-  const arr = new Array(selections.length).fill(false)
+  const categories = document.querySelectorAll('.selection');
+  const arr = new Array(categories.length).fill(false)
   const player = (player, token, imgLink) => ({ player, token, imgLink });
   const player1Name = player('player', 'X', 'https://img.icons8.com/color/160/000000/deadpool.png');
   const player2Name = player('player', 'O', 'https://img.icons8.com/color/160/000000/spiderman-head.png');
-
+  let playerName = player1Name.player;
+  
   const winningCombs = [
     [0, 1, 2],
     [3, 4, 5],
@@ -26,23 +26,59 @@ const GameBoard = (() => {
       alert.style.display = 'block';
     }
   }));
-   
-  selections.forEach((selected, index) => selected.addEventListener('click', () => {
+
+  categories.forEach((category, index) => category.addEventListener('click', () => {
+    category.querySelector('img');
+    const img1 = category.querySelector('img');
+    const img2 = category.querySelector('.second-img');
+    const link1 = GameBoard.player1Name.imgLink = img1.getAttribute('src');
+    const link2 = GameBoard.player2Name.imgLink = img2.getAttribute('src');
+
+    if (origBoard.includes('X') || origBoard.includes('O')) {
+      cells.forEach(cell => {
+        if (cell.querySelector('img')) {
+          indexOfX = [];
+          indexOfO = [];
+          for (let i = 0; i < origBoard.length; i++){
+            if (origBoard[i] === 'X') {
+              indexOfX.push(i)
+            }
+            if (origBoard[i] === 'O') {
+              indexOfO.push(i)
+            }
+          }
+          indexOfX.forEach(idx => {
+            const selectedCategory = document.getElementById(idx)
+            img = selectedCategory.querySelector('img')
+            img.setAttribute("src", link1)
+          })
+
+          indexOfO.forEach(idx => {
+            const selectedCategory = document.getElementById(idx)
+            img = selectedCategory.querySelector('img')
+            img.setAttribute("src", link2)
+          })
+         
+        }
+      })
+      link1
+      link2
+    }
     
     arr.forEach((elem, index) => {
       if (elem) {
-        selections[index].style.border = '2px solid white'
-        selections[index].style.removeProperty('background-image')
-        selections[index].style.removeProperty('transform')
-        arr.forEach((_,idx) => arr[idx] = false)
+        categories[index].style.border = '2px solid white'
+        categories[index].style.removeProperty('background-image')
+        categories[index].style.removeProperty('transform')
+        arr.forEach((_, idx) => arr[idx] = false)
       }
-    }) 
-    
+    })
+
     arr[index] = true;
-    selected.style.border = '2px solid #59065f'
-    selected.style.backgroundImage = 'linear-gradient(to left, #bdbbbe 0%, #9d9ea3 100%), radial-gradient(88% 271%, rgba(255, 255, 255, 0.25) 0%, rgba(254, 254, 254, 0.25) 1%, rgba(0, 0, 0, 0.25) 100%), radial-gradient(50% 100%, rgba(255, 255, 255, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%)'
-    selected.style.transform = 'scale(1.1)' 
-  }))
+    category.style.border = '2px solid #59065f';
+    category.style.backgroundImage = 'linear-gradient(to left, #bdbbbe 0%, #9d9ea3 100%), radial-gradient(88% 271%, rgba(255, 255, 255, 0.25) 0%, rgba(254, 254, 254, 0.25) 1%, rgba(0, 0, 0, 0.25) 100%), radial-gradient(50% 100%, rgba(255, 255, 255, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%)';
+    category.style.transform = 'scale(1.1)';})
+  );
   
   function displayPlayer(player) {
     const playerName = document.querySelector('.player-text');
@@ -151,18 +187,9 @@ form.addEventListener('submit', (e) => {
   GameBoard.player1Name.player = e.target.player1.value;
   GameBoard.player2Name.player = e.target.player2.value;
   const playerName = document.querySelector('.player-text');
-  playerName.textContent = `${e.target.player1.value === '' ? 'Player1' : e.target.player1.value}'s turn`;
+  playerName.textContent = `${e.target.player1.value}'s turn`;
   form.style.display = 'none';
   GameBoard.startGame();
 });
 
-const categories = document.querySelectorAll('.selection');
-categories.forEach(category => {
-  category.addEventListener('click', () => {
-    category.querySelector('img');
-    const img1 = category.querySelector('img');
-    GameBoard.player1Name.imgLink = img1.getAttribute('src');
-    const img2 = category.querySelector('.second-img');
-    GameBoard.player2Name.imgLink = img2.getAttribute('src');
-  });
-});
+
