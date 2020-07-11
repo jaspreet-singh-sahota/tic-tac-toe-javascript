@@ -9,6 +9,7 @@ const GameBoard = (() => {
   const player1Name = player('player', 'X', 'https://img.icons8.com/color/160/000000/deadpool.png');
   const player2Name = player('player', 'O', 'https://img.icons8.com/color/160/000000/spiderman-head.png');
   let playerName = player1Name.player;
+
   
   const winningCombs = [
     [0, 1, 2],
@@ -57,12 +58,9 @@ const GameBoard = (() => {
             const selectedCategory = document.getElementById(idx)
             img = selectedCategory.querySelector('img')
             img.setAttribute("src", link2)
-          })
-         
+          })    
         }
       })
-      link1
-      link2
     }
     
     arr.forEach((elem, index) => {
@@ -149,7 +147,7 @@ const GameBoard = (() => {
   }
   
   const turnClick = (e) => {
-    const currentPlayer = playerName ? player2Name : player1Name; 
+    const currentPlayer = playerName ? player1Name : player2Name; 
     displayPlayer(currentPlayer);
     turn(e.target.id, currentPlayer);
     swapTurn();
