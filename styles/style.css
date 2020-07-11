@@ -120,6 +120,7 @@ img {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.12) 100%);
   border: 2px solid white;
   margin: 1%;
+  cursor: pointer;
 }
 
 .selection:hover {
@@ -157,6 +158,8 @@ canvas {
   transform: translate(-50%, -50%);
 }
 
+
+
 .username {
   border: 0;
   background: transparent;
@@ -169,6 +172,7 @@ input[type=text],
 select {
   width: 25.5%;
   padding-left: 12px;
+  padding-bottom: 5px;
 }
 
 input[type=text]:hover {
@@ -194,3 +198,10 @@ select:focus {
   font-size: 1.5em;
   color: #555;
 }
+
+/* .mode-text {
+  width: 200px;
+  text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;
+  text-shadow: 0 0 3px #FF0000;
+  font-size: 1.25em;
+} */

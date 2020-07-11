@@ -1,5 +1,5 @@
 const GameBoard = (() => {
-  let origBoard = '';
+  let origBoard = [''];
   const form = document.querySelector('#form');
   const cells = document.querySelectorAll('.cell');
   const restart = document.querySelectorAll('.restart');
@@ -7,9 +7,11 @@ const GameBoard = (() => {
   const categories = document.querySelectorAll('.selection');
   const arr = new Array(categories.length).fill(false)
   const player = (player, token, imgLink) => ({ player, token, imgLink });
-  const selectedMode = { multiplayer: false, aiEasyMode: false, aiHardMode: false}
+  const modes = document.querySelectorAll('.mode-text')
+  const selectedMode = { multiplayer: true, aiEasyMode: false, aiHardMode: false}
   const player1Name = player('player', 'X', 'https://img.icons8.com/color/160/000000/deadpool.png');
   const player2Name = player('player', 'O', 'https://img.icons8.com/color/160/000000/spiderman-head.png');
+  const aiPlayer = player('AI', 'O', 'https://img.icons8.com/color/160/000000/spiderman-head.png');
   let playerName;
   
   const winningCombs = [
@@ -27,6 +29,10 @@ const GameBoard = (() => {
     if (player1Name.player === 'player') {
       alert.style.display = 'block';
     }
+  }));
+
+  modes.forEach(mode => mode.addEventListener('click', (e) => {
+    const currentMode = e.target.textContent
   }));
 
   const existingImageIndex = () => {
@@ -86,13 +92,11 @@ const GameBoard = (() => {
   );
   
   const displayPlayer = (currentPlayer) => {
-    console.log(currentPlayer)
     const playerName = document.querySelector('.player-text');
     playerName.textContent = `${currentPlayer.player}'s turn`;
   }
   
   const turn = (squareId, currentPlayer) => {
-    console.log(currentPlayer)
     origBoard[squareId] = currentPlayer.token;
     const input = document.createElement('img');
     input.setAttribute('src', currentPlayer.imgLink);
@@ -101,7 +105,6 @@ const GameBoard = (() => {
   };
   
   const checkWin = (board, currentPlayer) => {
-    console.log(currentPlayer)
     const player = currentPlayer.token
     const turnPlayed = board.reduce((acc, token, idx) => ((token === currentPlayer.token)
     ? acc.concat(idx) : acc), []);
@@ -123,9 +126,11 @@ const GameBoard = (() => {
     /* eslint-enable */
     return result;
   }
+
+  const checkAvailableMoves = () => { return origBoard.filter(elem => typeof elem === 'number')}
   
   const checkTie = () => {
-    const availableMoves = origBoard.filter(elem => typeof elem === 'number');
+    const availableMoves = checkAvailableMoves();
     if (availableMoves.length === 0) {
       const result = document.querySelectorAll('.cell');
       result.forEach(cell => {
@@ -151,16 +156,41 @@ const GameBoard = (() => {
       cells.forEach(cell => cell.removeEventListener('click', turnClick, false));
       result.style.backgroundColor = gameWon.player === 'X' ? '#4afa05' : '#57DDF3';
       /* eslint-enable */
-      console.log(gameWon)
       const winner = `${gameWon.currentPlayer} won!`;
       endGameStatus(winner);
     }
   }
-  
-  const turnClick = (e) => {
+
+  const randomAIMove = () => {
+    const availableMoves = checkAvailableMoves()
+    const randomNumber = Math.floor(Math.random() * (availableMoves.length))
+    return availableMoves[randomNumber]
+  }
+
+  const winner = (border , player) => {
+    let gameWon = checkWin(border, player);
+    if (gameWon) {
+      return gameOver(gameWon);
+    }
+  }
+
+  const easyMode = (e) => {
+    const NextTurn = playerName ? player1Name : aiPlayer
+    turn(e.target.id, player1Name);
+    winner(origBoard, player1Name)
+    const aiMove = randomAIMove()
+    if (aiMove !== undefined) {
+      turn(aiMove, aiPlayer);
+    }
+    winner(origBoard, aiPlayer)
+    displayPlayer(NextTurn);
+    swapTurn();
+    return checkTie();
+  }
+
+  const humanMode = (e) => {
     const currentPlayer = playerName ? player2Name : player1Name;
     const NextTurn = playerName ? player1Name : player2Name
-    console.log(playerName)
     displayPlayer(NextTurn);
     turn(e.target.id, currentPlayer);
     const gameWon = checkWin(origBoard, currentPlayer);
@@ -169,6 +199,15 @@ const GameBoard = (() => {
     }
     swapTurn();
     return checkTie();
+  }
+  
+  const turnClick = (e) => {
+    if (selectedMode.aiEasyMode) {
+      easyMode(e)
+    }
+    if (selectedMode.multiplayer){
+      humanMode(e)
+    }
   };
   
   const startGame = () => {
