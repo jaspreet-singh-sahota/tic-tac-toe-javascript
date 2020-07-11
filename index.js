@@ -6,10 +6,10 @@ const GameBoard = (() => {
   const categories = document.querySelectorAll('.selection');
   const arr = new Array(categories.length).fill(false)
   const player = (player, token, imgLink) => ({ player, token, imgLink });
+  const selectedMode = { multiplayer: false, aiEasyMode: false, aiHardMode: false}
   const player1Name = player('player', 'X', 'https://img.icons8.com/color/160/000000/deadpool.png');
   const player2Name = player('player', 'O', 'https://img.icons8.com/color/160/000000/spiderman-head.png');
   let playerName = player1Name.player;
-
   
   const winningCombs = [
     [0, 1, 2],
@@ -28,41 +28,17 @@ const GameBoard = (() => {
     }
   }));
 
-  categories.forEach((category, index) => category.addEventListener('click', () => {
-    category.querySelector('img');
-    const img1 = category.querySelector('img');
-    const img2 = category.querySelector('.second-img');
-    const link1 = GameBoard.player1Name.imgLink = img1.getAttribute('src');
-    const link2 = GameBoard.player2Name.imgLink = img2.getAttribute('src');
-
-    if (origBoard.includes('X') || origBoard.includes('O')) {
-      cells.forEach(cell => {
-        if (cell.querySelector('img')) {
-          indexOfX = [];
-          indexOfO = [];
-          for (let i = 0; i < origBoard.length; i++){
-            if (origBoard[i] === 'X') {
-              indexOfX.push(i)
-            }
-            if (origBoard[i] === 'O') {
-              indexOfO.push(i)
-            }
-          }
-          indexOfX.forEach(idx => {
-            const selectedCategory = document.getElementById(idx)
-            img = selectedCategory.querySelector('img')
-            img.setAttribute("src", link1)
-          })
-
-          indexOfO.forEach(idx => {
-            const selectedCategory = document.getElementById(idx)
-            img = selectedCategory.querySelector('img')
-            img.setAttribute("src", link2)
-          })    
-        }
-      })
+  const existingImageIndex = () => {
+    indexOfX = [];
+    indexOfO = [];
+    for (let i = 0; i < origBoard.length; i++) {
+      if (origBoard[i] === 'X') {indexOfX.push(i)}
+      if (origBoard[i] === 'O') {indexOfO.push(i)}
     }
-    
+    return indexOfX, indexOfO
+  }
+
+  const removeImageProperty = () => {
     arr.forEach((elem, index) => {
       if (elem) {
         categories[index].style.border = '2px solid white'
@@ -71,14 +47,46 @@ const GameBoard = (() => {
         arr.forEach((_, idx) => arr[idx] = false)
       }
     })
+  }
 
+  const addImageProperty = (category, index) => {
     arr[index] = true;
     category.style.border = '2px solid #59065f';
     category.style.backgroundImage = 'linear-gradient(to left, #bdbbbe 0%, #9d9ea3 100%), radial-gradient(88% 271%, rgba(255, 255, 255, 0.25) 0%, rgba(254, 254, 254, 0.25) 1%, rgba(0, 0, 0, 0.25) 100%), radial-gradient(50% 100%, rgba(255, 255, 255, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%)';
-    category.style.transform = 'scale(1.1)';})
+    category.style.transform = 'scale(1.1)';
+  }
+
+  const changeImageLink = (arr, link) => {
+    arr.forEach(idx => {
+      const selectedCategory = document.getElementById(idx)
+      img = selectedCategory.querySelector('img')
+      img.setAttribute("src", link)
+    })
+  }
+
+  categories.forEach((category, index) => category.addEventListener('click', () => {
+    category.querySelector('img');
+    const img1 = category.querySelector('img');
+    const img2 = category.querySelector('.second-img');
+    const link1 = GameBoard.player1Name.imgLink = img1.getAttribute('src');
+    const link2 = GameBoard.player2Name.imgLink = img2.getAttribute('src');
+    
+    removeImageProperty()
+
+    if (origBoard.includes('X') || origBoard.includes('O')) {
+      existingImageIndex()
+      cells.forEach(cell => {
+        if (cell.querySelector('img')) {
+          changeImageLink(indexOfX , link1);
+          changeImageLink(indexOfO , link2);   
+        }
+      })
+    }
+    
+    addImageProperty(category, index);})
   );
   
-  function displayPlayer(player) {
+  const displayPlayer = (player) => {
     const playerName = document.querySelector('.player-text');
     playerName.textContent = `${player.player}'s turn`;
   }
@@ -91,7 +99,7 @@ const GameBoard = (() => {
     cell.appendChild(input);
   };
   
-  function checkWin(board, currentPlayer) {
+  const checkWin = (board, currentPlayer) => {
     const player = currentPlayer.token
     const turnPlayed = board.reduce((acc, token, idx) => ((token === currentPlayer.token)
     ? acc.concat(idx) : acc), []);
@@ -106,7 +114,7 @@ const GameBoard = (() => {
     return gameWon;
   }
   
-  function endGameStatus(status) {
+  const endGameStatus = (status) => {
     document.querySelector('.endgame').style.display = 'block';
     /* eslint-disable */
     const result = document.querySelector(('.text')).textContent = `${status}`;
@@ -114,7 +122,7 @@ const GameBoard = (() => {
     return result;
   }
   
-  function checkTie() {
+  const checkTie = () => {
     const availableMoves = origBoard.filter(elem => typeof elem === 'number');
     if (availableMoves.length === 0) {
       const result = document.querySelectorAll('.cell');
@@ -127,11 +135,11 @@ const GameBoard = (() => {
     }
   }
   
-  function swapTurn() {
+  const swapTurn = () => {
     playerName = !playerName;
   }
   
-  function gameOver(gameWon) {
+  const gameOver = (gameWon) => {
     /* eslint-disable */
     for (const index of winningCombs[gameWon.index]) {
       /* eslint-enable */
