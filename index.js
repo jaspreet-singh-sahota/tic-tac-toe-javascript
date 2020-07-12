@@ -32,7 +32,12 @@ const GameBoard = (() => {
   }));
 
   modes.forEach(mode => mode.addEventListener('click', (e) => {
-    const currentMode = e.target.textContent
+    Object.entries(selectedMode).map(([key]) => [selectedMode[key] = false])
+    let key = 'multiplayer'
+    if (e.target.textContent === 'Human VS CPU') { key = 'aiEasyMode'}
+    if (e.target.textContent === 'Human VS AI') { key = 'aiHardMode'}
+    selectedMode[key] = true;
+    startGame()
   }));
 
   const existingImageIndex = () => {
@@ -133,8 +138,7 @@ const GameBoard = (() => {
   
   const checkTie = () => {
     const availableMoves = checkAvailableMoves();
-    console.log(availableMoves)
-    if (availableMoves.length === 0 || null) {
+    if (availableMoves.length === 0) {
       const result = document.querySelectorAll('.cell');
       result.forEach(cell => {
         cell.style.background = 'linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.32) 100%)';
@@ -179,8 +183,9 @@ const GameBoard = (() => {
 
   const easyMode = (e) => {
     const NextTurn = playerName ? player1Name : aiPlayer
+    easyModePlayer1Turn()
     turn(e.target.id, player1Name);
-    winner(origBoard, player1Name)
+    winner(origBoard, player1Name);
     const aiMove = randomAIMove()
     if (aiMove) {
       turn(aiMove, aiPlayer);
