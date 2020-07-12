@@ -8,12 +8,14 @@ const GameBoard = (() => {
   const arr = new Array(categories.length).fill(false)
   const player = (player, token, imgLink) => ({ player, token, imgLink });
   const modes = document.querySelectorAll('.mode-text')
-  const selectedMode = { multiplayer: false, aiEasyMode: false, aiHardMode: true}
+  const selectedMode = { multiplayer: false, aiEasyMode: false, aiHardMode: true }
   const player1Name = player('player', 'X', 'https://img.icons8.com/color/160/000000/deadpool.png');
   const player2Name = player('player', 'O', 'https://img.icons8.com/color/160/000000/spiderman-head.png');
   const aiPlayer = player('AI', 'O', 'https://img.icons8.com/color/160/000000/spiderman-head.png');
+  let isAiTurnOver = true
   let playerName;
-  
+
+
   const winningCombs = [
     [0, 1, 2],
     [3, 4, 5],
@@ -26,17 +28,16 @@ const GameBoard = (() => {
   ];
 
   cells.forEach(cell => cell.addEventListener('click', () => {
-    if (player1Name.player === 'player') {
-      alert.style.display = 'block';
-    }
+    if (player1Name.player === 'player') { alert.style.display = 'block'; }
   }));
 
   modes.forEach(mode => mode.addEventListener('click', (e) => {
     Object.entries(selectedMode).map(([key]) => [selectedMode[key] = false])
     let key = 'multiplayer'
-    if (e.target.textContent === 'Human VS CPU') { key = 'aiEasyMode'}
-    if (e.target.textContent === 'Human VS AI') { key = 'aiHardMode'}
+    if (e.target.textContent === 'Human VS CPU') { key = 'aiEasyMode' }
+    if (e.target.textContent === 'Human VS AI') { key = 'aiHardMode' }
     selectedMode[key] = true;
+    isAiTurnOver = true;
     startGame()
   }));
 
@@ -44,8 +45,8 @@ const GameBoard = (() => {
     indexOfX = [];
     indexOfO = [];
     for (let i = 0; i < origBoard.length; i++) {
-      if (origBoard[i] === 'X') {indexOfX.push(i)}
-      if (origBoard[i] === 'O') {indexOfO.push(i)}
+      if (origBoard[i] === 'X') { indexOfX.push(i) }
+      if (origBoard[i] === 'O') { indexOfO.push(i) }
     }
     return indexOfX, indexOfO
   }
@@ -90,19 +91,20 @@ const GameBoard = (() => {
       existingImageIndex()
       cells.forEach(cell => {
         if (cell.querySelector('img')) {
-          changeImageLink(indexOfX , link1);
-          changeImageLink(indexOfO , link2);   
+          changeImageLink(indexOfX, link1);
+          changeImageLink(indexOfO, link2);
         }
       })
     }
-    addImageProperty(category, index);})
+    addImageProperty(category, index);
+  })
   );
-  
+
   const displayPlayer = (currentPlayer) => {
     const playerName = document.querySelector('.player-text');
     playerName.textContent = `${currentPlayer.player}'s turn`;
   }
-  
+
   const turn = (squareId, currentPlayer) => {
     origBoard[squareId] = currentPlayer.token;
     const input = document.createElement('img');
@@ -110,11 +112,11 @@ const GameBoard = (() => {
     const cell = document.getElementById(squareId);
     cell.appendChild(input);
   };
-  
+
   const checkWin = (board, currentPlayer) => {
     const player = currentPlayer.token
     const turnPlayed = board.reduce((acc, token, idx) => ((token === currentPlayer.token)
-    ? acc.concat(idx) : acc), []);
+      ? acc.concat(idx) : acc), []);
     let gameWon = null;
     /* eslint-disable */
     for (const [index, win] of winningCombs.entries()) {
@@ -125,7 +127,7 @@ const GameBoard = (() => {
     }
     return gameWon;
   }
-  
+
   const endGameStatus = (status) => {
     document.querySelector('.endgame').style.display = 'block';
     /* eslint-disable */
@@ -134,8 +136,8 @@ const GameBoard = (() => {
     return result;
   }
 
-  const checkAvailableMoves = () => { return origBoard.filter(elem => typeof elem === 'number')}
-  
+  const checkAvailableMoves = () => { return origBoard.filter(elem => typeof elem === 'number') }
+
   const checkTie = () => {
     const availableMoves = checkAvailableMoves();
     if (availableMoves.length === 0) {
@@ -148,11 +150,9 @@ const GameBoard = (() => {
       endGameStatus("It's a Tie");
     }
   }
-  
-  const swapTurn = () => {
-    playerName = !playerName;
-  }
-  
+
+  const swapTurn = () => { playerName = !playerName; }
+
   const gameOver = (gameWon) => {
     /* eslint-disable */
     for (const index of winningCombs[gameWon.index]) {
@@ -174,37 +174,54 @@ const GameBoard = (() => {
     return availableMoves[randomNumber]
   }
 
-  const winner = (border , player) => {
-    let gameWon = checkWin(border, player);
-    if (gameWon) {
-      return gameOver(gameWon);
-    }
+  const removeEventListenerCell = (move) => {
+    cells.forEach(cell => {
+      if (Number(cell.id) === move) {
+        cell.removeEventListener('click', turnClick, false)
+      }
+    });
   }
 
   const easyMode = (e) => {
-    const NextTurn = playerName ? player1Name : aiPlayer
-    easyModePlayer1Turn()
-    turn(e.target.id, player1Name);
-    winner(origBoard, player1Name);
-    const aiMove = randomAIMove()
-    if (aiMove) {
-      turn(aiMove, aiPlayer);
+    if (isAiTurnOver) {
+      const NextTurn = playerName ? player1Name : aiPlayer
+      turn(e.target.id, player1Name);
+      const aiMove = randomAIMove()
+      isAiTurnOver = false;
+      let gameWon = checkWin(origBoard, player1Name);
+      if (gameWon) { return gameOver(gameWon); }
+      if (aiMove) {
+        setTimeout(() => {
+          isAiTurnOver = true
+          turn(aiMove, aiPlayer);
+          removeEventListenerCell(aiMove)
+          if (!gameWon) { gameWon = checkWin(origBoard, aiPlayer); }
+          if (gameWon) { return gameOver(gameWon); }
+          displayPlayer(NextTurn);
+          swapTurn();
+        }, 300);
+      }
+      return checkTie();
     }
-    winner(origBoard, aiPlayer)
-    displayPlayer(NextTurn);
-    swapTurn();
-    return checkTie();
   }
-  
+
   const hardMode = (e) => {
-    turn(e.target.id, player1Name)
-    winner(origBoard, player1Name)
-    const bestMove = minMaxAlgorithm(origBoard, aiPlayer).index;
-    if (bestMove) {
-      turn(bestMove, aiPlayer);  
+    if (isAiTurnOver) {
+      turn(e.target.id, player1Name)
+      const bestMove = minMaxAlgorithm(origBoard, aiPlayer).index;
+      isAiTurnOver = false
+      if (bestMove !== undefined) {
+        setTimeout(() => {
+          isAiTurnOver = true;
+          turn(bestMove, aiPlayer);
+          removeEventListenerCell(bestMove);
+          let gameWon = checkWin(origBoard, player1Name);
+          if (!gameWon) { gameWon = checkWin(origBoard, aiPlayer); }
+          if (gameWon) { return gameOver(gameWon); }
+        }, 300);
+      }
+      return checkTie();
     }
-    winner(origBoard, aiPlayer)
-    return checkTie();
   }
 
   const humanMode = (e) => {
@@ -220,14 +237,13 @@ const GameBoard = (() => {
     return checkTie();
   }
 
-
-  function minMaxAlgorithm(border, player) {
+  const minMaxAlgorithm = (border, player) => {
     let availableSpots = checkAvailableMoves();
 
     if (checkWin(origBoard, player1Name)) {
       return { score: -10 };
     } else if (checkWin(border, aiPlayer)) {
-      return { score: 10 }; 
+      return { score: 10 };
     } else if (availableSpots.length === 0) {
       return { score: 0 };
     }
@@ -252,7 +268,7 @@ const GameBoard = (() => {
     }
     let bestMove;
 
-    if (player === aiPlayer) {
+    if (player.token === aiPlayer.token) {
       let bestScore = -10000;
       for (let i = 0; i < moves.length; i++) {
         if (moves[i].score > bestScore) {
@@ -271,19 +287,13 @@ const GameBoard = (() => {
     }
     return moves[bestMove];
   }
-  
+
   const turnClick = (e) => {
-    if (selectedMode.aiEasyMode) {
-      easyMode(e)
-    }
-    if (selectedMode.multiplayer){
-      humanMode(e)
-    }
-    if (selectedMode.aiHardMode) {
-      hardMode(e)
-    }
+    if (selectedMode.aiEasyMode) { easyMode(e) }
+    if (selectedMode.multiplayer) { humanMode(e) }
+    if (selectedMode.aiHardMode) { hardMode(e) }
   };
-  
+
   const startGame = () => {
     document.querySelector('.endgame').style.display = 'none';
     alert.style.display = 'none';
@@ -293,7 +303,7 @@ const GameBoard = (() => {
       cell.style.removeProperty('background');
       cell.style.removeProperty('border');
       cell.innerHTML = '';
-      cell.addEventListener('click', turnClick, { once: true });
+      cell.addEventListener('click', turnClick);
     });
   };
 
