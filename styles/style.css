@@ -201,7 +201,6 @@ select:focus {
 
 /* .mode-text {
   width: 200px;
-  text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;
-  text-shadow: 0 0 3px #FF0000;
+  text-shadow: px 2px 3px #FF0000, 0 0 5px #0000FF;
   font-size: 1.25em;
 } */

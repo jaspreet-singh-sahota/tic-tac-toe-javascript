@@ -8,7 +8,7 @@ const GameBoard = (() => {
   const arr = new Array(categories.length).fill(false)
   const player = (player, token, imgLink) => ({ player, token, imgLink });
   const modes = document.querySelectorAll('.mode-text')
-  const selectedMode = { multiplayer: true, aiEasyMode: false, aiHardMode: false}
+  const selectedMode = { multiplayer: false, aiEasyMode: false, aiHardMode: true}
   const player1Name = player('player', 'X', 'https://img.icons8.com/color/160/000000/deadpool.png');
   const player2Name = player('player', 'O', 'https://img.icons8.com/color/160/000000/spiderman-head.png');
   const aiPlayer = player('AI', 'O', 'https://img.icons8.com/color/160/000000/spiderman-head.png');
@@ -77,6 +77,8 @@ const GameBoard = (() => {
     const img2 = category.querySelector('.second-img');
     const link1 = GameBoard.player1Name.imgLink = img1.getAttribute('src');
     const link2 = GameBoard.player2Name.imgLink = img2.getAttribute('src');
+    GameBoard.aiPlayer.imgLink = img2.getAttribute('src');
+
     removeImageProperty()
 
     if (origBoard.includes('X') || origBoard.includes('O')) {
@@ -131,7 +133,8 @@ const GameBoard = (() => {
   
   const checkTie = () => {
     const availableMoves = checkAvailableMoves();
-    if (availableMoves.length === 0) {
+    console.log(availableMoves)
+    if (availableMoves.length === 0 || null) {
       const result = document.querySelectorAll('.cell');
       result.forEach(cell => {
         cell.style.background = 'linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.32) 100%)';
@@ -179,12 +182,23 @@ const GameBoard = (() => {
     turn(e.target.id, player1Name);
     winner(origBoard, player1Name)
     const aiMove = randomAIMove()
-    if (aiMove !== undefined) {
+    if (aiMove) {
       turn(aiMove, aiPlayer);
     }
     winner(origBoard, aiPlayer)
     displayPlayer(NextTurn);
     swapTurn();
+    return checkTie();
+  }
+  
+  const hardMode = (e) => {
+    turn(e.target.id, player1Name)
+    winner(origBoard, player1Name)
+    const bestMove = minMaxAlgorithm(origBoard, aiPlayer).index;
+    if (bestMove) {
+      turn(bestMove, aiPlayer);  
+    }
+    winner(origBoard, aiPlayer)
     return checkTie();
   }
 
@@ -200,6 +214,58 @@ const GameBoard = (() => {
     swapTurn();
     return checkTie();
   }
+
+
+  function minMaxAlgorithm(border, player) {
+    let availableSpots = checkAvailableMoves();
+
+    if (checkWin(origBoard, player1Name)) {
+      return { score: -10 };
+    } else if (checkWin(border, aiPlayer)) {
+      return { score: 10 }; 
+    } else if (availableSpots.length === 0) {
+      return { score: 0 };
+    }
+    let moves = [];
+
+    for (let i = 0; i < availableSpots.length; i++) {
+      let move = {};
+
+      move.index = border[availableSpots[i]];
+
+      border[availableSpots[i]] = player.token;
+
+      if (player === aiPlayer) {
+        let result = minMaxAlgorithm(border, player1Name);
+        move.score = result.score;
+      } else {
+        let result = minMaxAlgorithm(border, aiPlayer);
+        move.score = result.score;
+      }
+      border[availableSpots[i]] = move.index;
+      moves.push(move);
+    }
+    let bestMove;
+
+    if (player === aiPlayer) {
+      let bestScore = -10000;
+      for (let i = 0; i < moves.length; i++) {
+        if (moves[i].score > bestScore) {
+          bestScore = moves[i].score;
+          bestMove = i;
+        }
+      }
+    } else {
+      let bestScore = 10000;
+      for (let i = 0; i < moves.length; i++) {
+        if (moves[i].score < bestScore) {
+          bestScore = moves[i].score;
+          bestMove = i;
+        }
+      }
+    }
+    return moves[bestMove];
+  }
   
   const turnClick = (e) => {
     if (selectedMode.aiEasyMode) {
@@ -207,6 +273,9 @@ const GameBoard = (() => {
     }
     if (selectedMode.multiplayer){
       humanMode(e)
+    }
+    if (selectedMode.aiHardMode) {
+      hardMode(e)
     }
   };
   
@@ -238,9 +307,7 @@ const GameBoard = (() => {
   return {
     player1Name,
     player2Name,
+    aiPlayer,
     startGame,
   };
 })();
-
-
-
