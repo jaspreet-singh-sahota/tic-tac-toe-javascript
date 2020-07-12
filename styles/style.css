@@ -199,14 +199,18 @@ select:focus {
   color: #555;
 }
 
-/* .mode-text {
-  text-shadow: 2px 2px 3px #FF0000, 0 0 5px #0000FF;
-  font-size: 1.25em;
-} */
+.input-field-toggle {
+  width: '42.5%';
+}
 
-/* 
-.mode-text:hover {
-  position: relative;
+.h {
+  text-shadow: 1px 1px 3px #FF0000, 0 0 5px #0000FF;
   font-size: 1.2em;
   cursor: pointer;
-} */
+  position: relative;
+}  
+
+.h::before {
+  content: '> ';
+  
+}
