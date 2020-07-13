@@ -61,6 +61,11 @@ This Tic Tac Toe game has a modern touch to it and I am calling it <strong>Super
 - In Hard mode AI plays the best possible move which means user can not win in any condition.
 - Feel free to try your luck. <strong>😃</strong>  I hope enjoy playing it.
 
+## Live Link (Netlify)
+
+- https://serene-goldwasser-e48494.netlify.app/
+
+
 ![Peek 2020-07-13 18-47](https://user-images.githubusercontent.com/55361440/87308921-8f86b800-c539-11ea-847e-9f200a187b67.gif)
 
 <!-- BUILD WITH -->
@@ -79,7 +84,7 @@ To run Library-project locally, clone the repository, navigate to it's containin
 
 ```bash
 git@github.com:jaspreet-singh-sahota/tic-tac-toe-javascript.git
-cd library
+cd tic-tac-toe-javascript
 ```
 
 Now you can open `index.html` in your browser to see Super-TicTac-toe up and running.
