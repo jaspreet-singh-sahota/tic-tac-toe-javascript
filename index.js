@@ -216,7 +216,7 @@ const GameBoard = (() => {
       isAiTurnOver = false;
       if (gameWon) { return gameOver(gameWon); }
       const aiMove = randomAIMove()
-      if (aiMove) {
+      if (aiMove !== undefined) {
         setTimeout(() => {
           isAiTurnOver = true
           turn(aiMove, aiPlayer);
