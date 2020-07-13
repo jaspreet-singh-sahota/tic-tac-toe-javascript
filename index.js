@@ -138,6 +138,7 @@ const GameBoard = (() => {
     input.setAttribute('src', currentPlayer.imgLink);
     const cell = document.getElementById(squareId);
     cell.appendChild(input);
+    cell.removeEventListener('click', turnClick, false)
   };
 
   const checkWin = (board, currentPlayer) => {
