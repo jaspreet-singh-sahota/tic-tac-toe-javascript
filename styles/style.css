@@ -91,6 +91,7 @@ td:hover {
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
+
   /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
 }
 
@@ -128,7 +129,7 @@ img {
   height: 100vh;
   top: 61%;
   transform: translate(75vw, -50%);
-  padding-left: 10px ;
+  padding-left: 10px;
 }
 
 .selection {
@@ -178,8 +179,6 @@ canvas {
   transform: translate(-50%, -50%);
 }
 
-
-
 .username {
   border: 0;
   background: transparent;
@@ -228,7 +227,7 @@ select:focus {
   font-size: 1.25em;
   cursor: pointer;
   position: relative;
-}  
+}
 
 .h::before {
   content: '> ';
