@@ -56,15 +56,10 @@ const GameBoard = (() => {
 
   modes.forEach(mode => mode.addEventListener('click', (e) => {
     Object.entries(selectedMode).map(([key]) => [selectedMode[key] = false])
-    let key = 'multiplayer'
-    if (e.target.textContent === 'Human VS CPU') { 
-      key = 'aiEasyMode';
-      formStyle()
-    }
-    if (e.target.textContent === 'Human VS AI') { 
-      key = 'aiHardMode' 
-      formStyle()
-    }
+    let key = e.target.id;
+    console.log(e.target)
+    e.target.classList.toggle("h");
+    if (e.target.id === 'aiEasyMode' || e.target.id === 'aiHardMode') { formStyle() }
     if (e.target.textContent === 'Multiplayer') {
       originalForm()
     }

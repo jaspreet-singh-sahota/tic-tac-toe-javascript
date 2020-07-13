@@ -54,7 +54,7 @@ td:hover {
 }
 
 .mode {
-  padding: 20% 0;
+  margin: 20% 0;
   font-size: 1.5rem;
   letter-spacing: 0.2em;
   font-family: 'Permanent Marker', cursive;
@@ -204,7 +204,7 @@ select:focus {
 }
 
 .h {
-  text-shadow: 1px 1px 3px #FF0000, 0 0 5px #0000FF;
+  text-shadow: 0.5px 0.5px 3px #FF0000, 0 0 5px #0000FF;
   font-size: 1.2em;
   cursor: pointer;
   position: relative;
