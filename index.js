@@ -9,15 +9,15 @@ const GameBoard = (() => {
   const alert = document.querySelector('.invalid');
   const categories = document.querySelectorAll('.selection');
   const arr = new Array(categories.length).fill(false)
-  const player = (player, token, imgLink) => ({ player, token, imgLink });
   const modes = document.querySelectorAll('.mode-text')
-  const selectedMode = { multiplayer: false, aiEasyMode: false, aiHardMode: true }
-  const player1Name = player('', 'X', 'https://img.icons8.com/color/160/000000/deadpool.png');
-  const player2Name = player('player', 'O', 'https://img.icons8.com/color/160/000000/spiderman-head.png');
-  const aiPlayer = player('AI', 'O', 'https://img.icons8.com/color/160/000000/spiderman-head.png');
+  const selectedMode = { multiplayer: true, aiEasyMode: false, aiHardMode: false }
+  const player = (player, token, imgLink) => ({ player, token, imgLink });
+  const player1Name = player('', 'X', 'https://img.icons8.com/ios-filled/160/000000/x.png');
+  const player2Name = player('player', 'O', 'https://img.icons8.com/ios-filled/100/000000/o.png');
+  const aiPlayer = player('AI', 'O', 'https://img.icons8.com/ios-filled/100/000000/o.png');
   let isAiTurnOver = true
   let playerName;
-
+  
   const winningCombs = [
     [0, 1, 2],
     [3, 4, 5],
@@ -29,11 +29,18 @@ const GameBoard = (() => {
     [6, 4, 2],
   ];
 
+  
   cells.forEach(cell => cell.addEventListener('click', () => {
     if (player1Name.player === '') { alert.style.display = 'block'; }
   }));
 
-  const formStyle = () => {
+  const switchGameMode = (e) => {
+    modes.forEach(mode => mode.classList.remove('h'))
+    e.target.classList.toggle("h");
+  }
+
+  const formStyle = (e) => {
+    switchGameMode(e)
     player1InputField.style.width = '42.5%'
     player2InputField.removeAttribute('required')
     player2InputField.style.display = 'none'
@@ -43,7 +50,8 @@ const GameBoard = (() => {
     player1Name.player = ''
   }
   
-  const originalForm = () => {
+  const originalForm = (e) => {
+    switchGameMode(e)
     const att = document.createAttribute('required')
     player2InputField.setAttributeNode(att)
     player2InputField.style.display = 'inline-block'
@@ -54,19 +62,22 @@ const GameBoard = (() => {
     player1Name.player = ''
   }
 
-  modes.forEach(mode => mode.addEventListener('click', (e) => {
-    Object.entries(selectedMode).map(([key]) => [selectedMode[key] = false])
-    let key = e.target.id;
-    console.log(e.target)
-    e.target.classList.toggle("h");
-    if (e.target.id === 'aiEasyMode' || e.target.id === 'aiHardMode') { formStyle() }
-    if (e.target.textContent === 'Multiplayer') {
-      originalForm()
-    }
-    selectedMode[key] = true;
-    isAiTurnOver = true;
-    startGame()
-  }));
+  modes.forEach(mode => {
+    mode.addEventListener('click', (e) => {
+      Object.entries(selectedMode).map(([key]) => [selectedMode[key] = false])
+      let key = e.target.id;
+      if (e.target.id === 'aiEasyMode') { 
+        formStyle(e) 
+      } else if (e.target.id === 'aiHardMode') { 
+        formStyle(e) 
+      } else {
+        originalForm(e)
+      }
+      selectedMode[key] = true;
+      isAiTurnOver = true;
+      startGame()
+    })
+  })   
 
   const existingImageIndex = () => {
     indexOfX = [];
@@ -128,8 +139,8 @@ const GameBoard = (() => {
   );
 
   const displayPlayer = (currentPlayer) => {
-    const playerName = document.querySelector('.player-text');
-    playerName.textContent = `${currentPlayer.player}'s turn`;
+    const displayPlayerName = document.querySelector('.player-text');
+    displayPlayerName.textContent = `${currentPlayer.player}'s turn`;
   }
 
   const turn = (squareId, currentPlayer) => {
@@ -139,6 +150,7 @@ const GameBoard = (() => {
     const cell = document.getElementById(squareId);
     cell.appendChild(input);
     cell.removeEventListener('click', turnClick, false)
+    cell.style.cursor = 'not-allowed'
   };
 
   const checkWin = (board, currentPlayer) => {
@@ -212,6 +224,7 @@ const GameBoard = (() => {
 
   const easyMode = (e) => {
     if (isAiTurnOver) {
+      displayPlayer(player1Name)
       turn(e.target.id, player1Name);
       let gameWon = checkWin(origBoard, player1Name);
       isAiTurnOver = false;
@@ -234,6 +247,7 @@ const GameBoard = (() => {
 
   const hardMode = (e) => {
     if (isAiTurnOver) {
+      displayPlayer(player1Name)
       turn(e.target.id, player1Name)
       const bestMove = minMaxAlgorithm(origBoard, aiPlayer).index;
       isAiTurnOver = false
@@ -333,6 +347,7 @@ const GameBoard = (() => {
       cell.style.removeProperty('background');
       cell.style.removeProperty('border');
       cell.innerHTML = '';
+      cell.style.cursor = 'pointer'
       cell.addEventListener('click', turnClick);
     });
   };
@@ -341,6 +356,7 @@ const GameBoard = (() => {
     e.preventDefault();
     GameBoard.player1Name.player = e.target.player1.value;
     GameBoard.player2Name.player = e.target.player2.value;
+    const displayPlayerName = document.querySelector('.player-text');
     displayPlayerName.textContent = `${e.target.player1.value}'s turn`;
     form.style.display = 'none';
     GameBoard.startGame();
