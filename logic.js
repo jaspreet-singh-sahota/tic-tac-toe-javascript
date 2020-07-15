@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-unused-vars */
 
 const selectedMode = { multiplayer: true, aiEasyMode: false, aiHardMode: false };
@@ -5,9 +6,12 @@ const player = (player, token, imgLink) => ({ player, token, imgLink });
 const player1Name = player('', 'X', 'https://img.icons8.com/ios-filled/160/000000/x.png');
 const player2Name = player('player', 'O', 'https://img.icons8.com/ios-filled/100/000000/o.png');
 const aiPlayer = player('AI', 'O', 'https://img.icons8.com/ios-filled/100/000000/o.png');
-const isAiTurnOver = true;
 let indexOfExistingMove;
 let playerName;
+/* eslint-disable */
+let isAiTurnOver = true;
+let origBoard = [''];
+/* eslint-enable */
 
 const winningCombs = [
   [0, 1, 2],
@@ -19,8 +23,6 @@ const winningCombs = [
   [0, 4, 8],
   [6, 4, 2],
 ];
-
-const origBoard = [''];
 
 const existingImageIndex = () => {
   const indexOfX = [];

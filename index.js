@@ -1,5 +1,6 @@
-/* eslint-disable no-unused-vars */
-// import * as logic from "logic";
+/* global selectedMode, player2Name, player1Name, aiPlayer, indexOfExistingMove,
+ checkAvailableMoves, origBoard, existingImageIndex, isAiTurnOver,
+  checkWin, randomAIMove, swapTurn, minMaxAlgorithm, playerName */
 
 const GameBoard = (() => {
   const form = document.querySelector('#form');
@@ -13,7 +14,6 @@ const GameBoard = (() => {
   const arr = new Array(categories.length).fill(false);
 
   const modes = document.querySelectorAll('.mode-text');
-
 
   cells.forEach(cell => cell.addEventListener('click', () => {
     if (player1Name.player === '') { alert.style.display = 'block'; }
@@ -135,7 +135,6 @@ const GameBoard = (() => {
     }
   };
 
-
   const gameOver = (gameWon) => {
     /* eslint-disable */
     for (const index of winningCombs[gameWon.index]) {
@@ -150,7 +149,6 @@ const GameBoard = (() => {
       endGameStatus(winner);
     }
   };
-
 
   const removeEventListenerCell = (move) => {
     cells.forEach(cell => {
@@ -244,7 +242,6 @@ const GameBoard = (() => {
     });
   };
 
-
   restart.forEach(btn => btn.addEventListener('click', startGame));
 
   modes.forEach(mode => {
@@ -267,14 +264,14 @@ const GameBoard = (() => {
   });
 
   form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  player1Name.player = e.target.player1.value;
-  player2Name.player = e.target.player2.value;
-  const displayPlayerName = document.querySelector('.player-text');
-  displayPlayerName.textContent = `${e.target.player1.value}'s turn`;
-  form.style.display = 'none';
-  GameBoard.startGame();
-});
+    e.preventDefault();
+    player1Name.player = e.target.player1.value;
+    player2Name.player = e.target.player2.value;
+    const displayPlayerName = document.querySelector('.player-text');
+    displayPlayerName.textContent = `${e.target.player1.value}'s turn`;
+    form.style.display = 'none';
+    GameBoard.startGame();
+  });
 
   return {
     startGame,
