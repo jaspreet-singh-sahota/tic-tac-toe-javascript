@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <title>Tic Tac Toe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+  <div id="particles-js">
+    <h1 class="title">Super Tic Tac Toe</h1>
+    <div class="mode-type">
+      <div class="mode"><span id="multiplayer" class="mode-text h">Multiplayer</span></div>
+      <div class="mode"><span id="aiEasyMode" class="mode-text">Human VS CPU</span></div>
+      <div class="mode"><span id="aiHardMode" class="mode-text">Human VS AI</span></div>
+    </div>
+    <div class="selection-container">
+      <div class="selection">
+        <div class="img-container">
+          <img src="https://img.icons8.com/ios-filled/160/000000/x.png" />
+        </div>
+        <div>
+          <span class="verses">VS</span>
+        </div>
+        <div class="img-container">
+          <img class="second-img" src="https://img.icons8.com/ios-filled/100/000000/o.png" />
+        </div>
+      </div>
+      <div class="selection">
+        <div class="img-container">
+          <img src="https://img.icons8.com/color/160/000000/batman.png" />
+        </div>
+        <div>
+          <span class="verses">VS</span>
+        </div>
+        <div class="img-container">
+          <img class="second-img" src="https://img.icons8.com/color/160/000000/superman-dc.png" />
+        </div>
+      </div>
+      <div class="selection">
+        <div class="img-container">
+          <img src="https://img.icons8.com/color/160/000000/captain-america.png" />
+        </div>
+        <div>
+          <span class="verses">VS</span>
+        </div>
+        <div class="img-container">
+          <img class="second-img" src="https://img.icons8.com/fluent/550/000000/iron-man.png" />
+        </div>
+      </div>
+      <div class="selection">
+        <div class="img-container">
+          <img src="https://img.icons8.com/color/160/000000/deadpool.png" />
+        </div>
+        <div>
+          <span class="verses">VS</span>
+        </div>
+        <div class="img-container">
+          <img class="second-img" src="https://img.icons8.com/color/160/000000/spiderman-head.png" />
+        </div>
+      </div>
+      <div class="selection">
+        <div class="img-container">
+          <img src="https://img.icons8.com/color/160/000000/logan-x-men.png" />
+        </div>
+        <div>
+          <span class="verses">VS</span>
+        </div>
+        <div class="img-container">
+          <img class="second-img" src="https://img.icons8.com/color/160/000000/hulk.png" />
+        </div>
+      </div>
+      <div class="selection">
+        <div class="img-container">
+          <img src="https://img.icons8.com/color/96/000000/darth-vader.png" />
+        </div>
+        <div>
+          <span class="verses">VS</span>
+        </div>
+        <div class="img-container">
+          <img class="second-img" src="https://img.icons8.com/color/96/000000/luke-skywalker.png" />
+        </div>
+      </div>
+    </div>
+    <div class="player-name">
+      <h4 class="player-text"></h4>
+    </div>
+    <div class="form-userinput">
+      <form id="form" autocomplete="off">
+        <input type="text" class="username user-input1" placeholder="Player1 Name" name='player1' autofocus required>
+        <input type="text" class="username user-input2" placeholder="Player2 Name" name='player2' required>
+        <button class="username-submit-btn">Enter Username</button>
+      </form>
+    </div>
+    <table>
+      <tr>
+        <td class="cell" id="0">
+        </td>
+        <td class="cell" id="1"></td>
+        <td class="cell" id="2"></td>
+      </tr>
+      <tr>
+        <td class="cell" id="3"></td>
+        <td class="cell" id="4"></td>
+        <td class="cell" id="5"></td>
+      </tr>
+      <tr>
+        <td class="cell" id="6"></td>
+        <td class="cell" id="7"></td>
+        <td class="cell" id="8"></td>
+      </tr>
+    </table>
+    <div class="endgame alert">
+      <div class="text">
+      </div>
+      <button id="restart" class="restart">Play Again</button>
+    </div>
+    <div class="invalid alert">
+      <div class="text name-required">
+        <h4>Players name required</h4>
+      </div>
+    </div>
+  </div>
+  <script src="particle.js"></script>
+  <script src="index.js"></script>
+  <script src="logic.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,239 @@
+* {
+  box-sizing: border-box;
+  overflow-y: hidden;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.title {
+  text-align: center;
+  font-family: 'Permanent Marker', cursive;
+  color: #59065f;
+  font-size: 4rem;
+  letter-spacing: 3px;
+}
+
+table {
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+td {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.12) 100%);
+  width: 7.8vw;
+  height: 7.8vw;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+td:hover {
+  border: 2px solid #59065f;
+  transform: scale(1.04);
+}
+
+.restart {
+  width: 50%;
+  padding: 1.8%;
+  position: absolute;
+  top: 67%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+  background-color: #e5e5fd;
+  font-weight: bold;
+}
+
+#multiplayer {
+  position: absolute;
+  top: 30%;
+  left: 16%;
+  transform: translate(-50%, -50%);
+}
+
+#aiEasyMode {
+  position: absolute;
+  top: 52%;
+  left: 17%;
+  transform: translate(-50%, -50%);
+}
+
+#aiHardMode {
+  position: absolute;
+  top: 74%;
+  left: 16%;
+  transform: translate(-50%, -50%);
+}
+
+.mode {
+  font-size: 1.5rem;
+  letter-spacing: 0.2em;
+  font-family: 'Permanent Marker', cursive;
+  color: #59065f;
+  cursor: pointer;
+}
+
+.mode:hover {
+  font-size: 1.57rem;
+}
+
+.alert {
+  display: none;
+  background-color: #59065f;
+  border-radius: 10px;
+  position: absolute;
+  width: 160px;
+  height: 15%;
+  top: 88%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+}
+
+.text {
+  position: absolute;
+  width: 80%;
+  left: inherit;
+  top: 40%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  font-size: 1.2em;
+}
+
+.name-required {
+  width: 100%;
+  top: 50%;
+}
+
+.img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  height: 100%;
+}
+
+img {
+  width: 70%;
+  height: auto;
+  z-index: 10;
+}
+
+.selection-container {
+  position: absolute;
+  height: 100vh;
+  top: 61%;
+  transform: translate(75vw, -50%);
+  padding-left: 10px;
+}
+
+.selection {
+  display: flex;
+  height: 13%;
+  width: 27%;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.12) 100%);
+  border: 2px solid white;
+  margin: 1%;
+  cursor: pointer;
+}
+
+.selection:hover {
+  border: 2px solid #59065f;
+  transform: scale(1.07);
+  background-blend-mode: normal, lighten, soft-light;
+}
+
+.verses {
+  font-size: 2em;
+  position: relative;
+  font-family: 'Permanent Marker', cursive;
+  color: white;
+}
+
+canvas {
+  display: block;
+}
+
+#particles-js {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #e5e5fd;
+  background-image: url("");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.form-userinput {
+  position: absolute;
+  top: 21%;
+  left: 53.55%;
+  transform: translate(-50%, -50%);
+}
+
+.username {
+  border: 0;
+  background: transparent;
+  border-bottom: 2px solid #59065f;
+  font-size: 1.3em;
+  margin: 0 50px;
+}
+
+input[type=text],
+select {
+  width: 25.5%;
+  padding-left: 12px;
+  padding-bottom: 5px;
+}
+
+input[type=text]:hover {
+  border: none;
+  border-bottom: 3px solid #59065f;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+
+.username-submit-btn {
+  display: none;
+}
+
+.player-name {
+  position: absolute;
+  left: 50%;
+  top: 23%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5em;
+  color: #555;
+}
+
+.input-field-toggle {
+  width: '42.5%';
+}
+
+.h {
+  color: #59065f;
+  font-size: 1.25em;
+  cursor: pointer;
+  position: relative;
+}
+
+.h::before {
+  content: '> ';
+}
+
+.default-category-selected {
+  background-image: 'linear-gradient(to left, #bdbbbe 0%, #9d9ea3 100%), radial-gradient(88% 271%, rgba(255, 255, 255, 0.25) 0%, rgba(254, 254, 254, 0.25) 1%, rgba(0, 0, 0, 0.25) 100%), radial-gradient(50% 100%, rgba(255, 255, 255, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%)';
+  transform: scale(1.1);
+}
