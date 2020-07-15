@@ -1,6 +1,7 @@
 /* global selectedMode, player2Name, player1Name, aiPlayer, indexOfExistingMove,
- checkAvailableMoves, origBoard, existingImageIndex, isAiTurnOver,
-  checkWin, randomAIMove, swapTurn, minMaxAlgorithm, playerName */
+ checkAvailableMoves, existingImageIndex, checkWin,
+  randomAIMove, swapTurn, minMaxAlgorithm, playerName */
+/* global isAiTurnOver:writable, origBoard:writable  */
 
 const GameBoard = (() => {
   const form = document.querySelector('#form');

@@ -24,14 +24,19 @@ const winningCombs = [
   [6, 4, 2],
 ];
 
+/* eslint-disable */
 const existingImageIndex = () => {
+/* eslint-enable */
   const indexOfX = [];
   const indexOfO = [];
   for (let i = 0; i < origBoard.length; i += 1) {
     if (origBoard[i] === 'X') { indexOfX.push(i); }
     if (origBoard[i] === 'O') { indexOfO.push(i); }
   }
+
+  /* eslint-disable */
   indexOfExistingMove = [indexOfX, indexOfO];
+  /* eslint-enable */
 };
 
 const checkWin = (board, currentPlayer) => {
@@ -51,9 +56,10 @@ const checkWin = (board, currentPlayer) => {
 
 const checkAvailableMoves = () => origBoard.filter(elem => typeof elem === 'number');
 
+/* eslint-disable */
 const swapTurn = () => { playerName = !playerName; };
-
 const randomAIMove = () => {
+/* eslint-enable */
   const availableMoves = checkAvailableMoves();
   const randomNumber = Math.floor(Math.random() * (availableMoves.length));
   return availableMoves[randomNumber];
@@ -82,7 +88,9 @@ const minMaxAlgorithm = (border, player) => {
       const result = minMaxAlgorithm(border, player1Name);
       move.score = result.score;
     } else {
+      /* eslint-disable */
       const result = minMaxAlgorithm(border, aiPlayer);
+      /* eslint-enable */
       move.score = result.score;
     }
     border[availableSpots[i]] = move.index;
