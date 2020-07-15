@@ -111,21 +111,6 @@ const GameBoard = (() => {
     cell.style.cursor = 'not-allowed';
   };
 
-  const checkWin = (board, currentPlayer) => {
-    const player = currentPlayer.token;
-    const turnPlayed = board.reduce((acc, token, idx) => ((token === currentPlayer.token)
-      ? acc.concat(idx) : acc), []);
-    let gameWon = null;
-    /* eslint-disable */
-    for (const [index, win] of winningCombs.entries()) {
-      /* eslint-enable */
-      if (win.every(elem => turnPlayed.indexOf(elem) !== -1)) {
-        gameWon = { index, player, currentPlayer: currentPlayer.player };
-      }
-    }
-    return gameWon;
-  };
-
   const endGameStatus = (status) => {
     document.querySelector('.endgame').style.display = 'block';
     /* eslint-disable */
@@ -133,8 +118,6 @@ const GameBoard = (() => {
     /* eslint-enable */
     return result;
   };
-
-  const checkAvailableMoves = () => origBoard.filter(elem => typeof elem === 'number');
 
   const checkTie = () => {
     const availableMoves = checkAvailableMoves();
@@ -149,7 +132,6 @@ const GameBoard = (() => {
     }
   };
 
-  const swapTurn = () => { playerName = !playerName; };
 
   const gameOver = (gameWon) => {
     /* eslint-disable */
@@ -166,11 +148,7 @@ const GameBoard = (() => {
     }
   };
 
-  const randomAIMove = () => {
-    const availableMoves = checkAvailableMoves();
-    const randomNumber = Math.floor(Math.random() * (availableMoves.length));
-    return availableMoves[randomNumber];
-  };
+  
 
   const removeEventListenerCell = (move) => {
     cells.forEach(cell => {
@@ -205,57 +183,6 @@ const GameBoard = (() => {
       }
     }
     return checkTie();
-  };
-
-  const minMaxAlgorithm = (border, player) => {
-    const availableSpots = checkAvailableMoves();
-
-    if (checkWin(origBoard, player1Name)) {
-      return { score: -10 };
-    } if (checkWin(border, aiPlayer)) {
-      return { score: 10 };
-    } if (availableSpots.length === 0) {
-      return { score: 0 };
-    }
-    const moves = [];
-
-    for (let i = 0; i < availableSpots.length; i += 1) {
-      const move = {};
-
-      move.index = border[availableSpots[i]];
-
-      border[availableSpots[i]] = player.token;
-
-      if (player === aiPlayer) {
-        const result = minMaxAlgorithm(border, player1Name);
-        move.score = result.score;
-      } else {
-        const result = minMaxAlgorithm(border, aiPlayer);
-        move.score = result.score;
-      }
-      border[availableSpots[i]] = move.index;
-      moves.push(move);
-    }
-    let bestMove;
-
-    if (player.token === aiPlayer.token) {
-      let bestScore = -10000;
-      for (let i = 0; i < moves.length; i += 1) {
-        if (moves[i].score > bestScore) {
-          bestScore = moves[i].score;
-          bestMove = i;
-        }
-      }
-    } else {
-      let bestScore = 10000;
-      for (let i = 0; i < moves.length; i += 1) {
-        if (moves[i].score < bestScore) {
-          bestScore = moves[i].score;
-          bestMove = i;
-        }
-      }
-    }
-    return moves[bestMove];
   };
 
   const hardMode = (e) => {
@@ -300,7 +227,6 @@ const GameBoard = (() => {
     }
   };
 
-
   const startGame = () => {
     document.querySelector('.endgame').style.display = 'none';
     alert.style.display = 'none';
@@ -340,9 +266,6 @@ const GameBoard = (() => {
   });
 
   return {
-    // player1Name,
-    // player2Name,
-    // aiPlayer,
     startGame,
   };
 })();
