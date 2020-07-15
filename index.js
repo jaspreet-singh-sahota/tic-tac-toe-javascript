@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+// import * as logic from "logic";
+
 const GameBoard = (() => {
   const form = document.querySelector('#form');
   const player2InputField = document.querySelector('.user-input2');
@@ -10,7 +13,7 @@ const GameBoard = (() => {
   const arr = new Array(categories.length).fill(false);
 
   const modes = document.querySelectorAll('.mode-text');
-  
+
 
   cells.forEach(cell => cell.addEventListener('click', () => {
     if (player1Name.player === '') { alert.style.display = 'block'; }
@@ -148,7 +151,6 @@ const GameBoard = (() => {
     }
   };
 
-  
 
   const removeEventListenerCell = (move) => {
     cells.forEach(cell => {
@@ -242,7 +244,6 @@ const GameBoard = (() => {
     });
   };
 
-  
 
   restart.forEach(btn => btn.addEventListener('click', startGame));
 
@@ -264,6 +265,16 @@ const GameBoard = (() => {
       startGame();
     });
   });
+
+  form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  player1Name.player = e.target.player1.value;
+  player2Name.player = e.target.player2.value;
+  const displayPlayerName = document.querySelector('.player-text');
+  displayPlayerName.textContent = `${e.target.player1.value}'s turn`;
+  form.style.display = 'none';
+  GameBoard.startGame();
+});
 
   return {
     startGame,

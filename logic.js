@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
+
 const selectedMode = { multiplayer: true, aiEasyMode: false, aiHardMode: false };
 const player = (player, token, imgLink) => ({ player, token, imgLink });
 const player1Name = player('', 'X', 'https://img.icons8.com/ios-filled/160/000000/x.png');
 const player2Name = player('player', 'O', 'https://img.icons8.com/ios-filled/100/000000/o.png');
 const aiPlayer = player('AI', 'O', 'https://img.icons8.com/ios-filled/100/000000/o.png');
-let isAiTurnOver = true;
+const isAiTurnOver = true;
 let indexOfExistingMove;
 let playerName;
 
@@ -18,7 +20,7 @@ const winningCombs = [
   [6, 4, 2],
 ];
 
-let origBoard = [''];
+const origBoard = [''];
 
 const existingImageIndex = () => {
   const indexOfX = [];
@@ -105,13 +107,3 @@ const minMaxAlgorithm = (border, player) => {
   }
   return moves[bestMove];
 };
-
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  player1Name.player = e.target.player1.value;
-  player2Name.player = e.target.player2.value;
-  const displayPlayerName = document.querySelector('.player-text');
-  displayPlayerName.textContent = `${e.target.player1.value}'s turn`;
-  form.style.display = 'none';
-  GameBoard.startGame();
-});
