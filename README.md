@@ -63,7 +63,7 @@ This Tic Tac Toe game has a modern touch to it and I am calling it <strong>Super
 
 ## Live Link (Netlify)
 
-- https://serene-goldwasser-e48494.netlify.app/
+- https://super-tic-tac-toe-jassi.netlify.app/
 
 
 ![Peek 2020-07-13 18-47](https://user-images.githubusercontent.com/55361440/87308921-8f86b800-c539-11ea-847e-9f200a187b67.gif)
@@ -99,6 +99,13 @@ Enjoy playing it.
 - [LinkedIn](https://www.linkedin.com/in/jaspreet-singh-a28286146/)
 - [GitHub](https://github.com/jaspreet-singh-sahota)
 - [Email](jaspreetsinghjassi01@gmail.com)
+
+👤 **Okiror Frank** 
+    
+- [LinkedIn](https://www.linkedin.com/in/frank-okiror/)
+- [GitHub](https://github.com/frankopkusianwar)
+- [Email](okirorfrank3@gmail.com)
+
 
 ## Show your support
 
