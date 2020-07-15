@@ -1,5 +1,4 @@
 const GameBoard = (() => {
-  let origBoard = [''];
   const form = document.querySelector('#form');
   const player2InputField = document.querySelector('.user-input2');
   const player1InputField = document.querySelector('.user-input1');
@@ -9,26 +8,9 @@ const GameBoard = (() => {
   const alert = document.querySelector('.invalid');
   const categories = document.querySelectorAll('.selection');
   const arr = new Array(categories.length).fill(false);
-  const modes = document.querySelectorAll('.mode-text');
-  const selectedMode = { multiplayer: true, aiEasyMode: false, aiHardMode: false };
-  const player = (player, token, imgLink) => ({ player, token, imgLink });
-  const player1Name = player('', 'X', 'https://img.icons8.com/ios-filled/160/000000/x.png');
-  const player2Name = player('player', 'O', 'https://img.icons8.com/ios-filled/100/000000/o.png');
-  const aiPlayer = player('AI', 'O', 'https://img.icons8.com/ios-filled/100/000000/o.png');
-  let isAiTurnOver = true;
-  let indexOfExistingMove;
-  let playerName;
 
-  const winningCombs = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [6, 4, 2],
-  ];
+  const modes = document.querySelectorAll('.mode-text');
+  
 
   cells.forEach(cell => cell.addEventListener('click', () => {
     if (player1Name.player === '') { alert.style.display = 'block'; }
@@ -62,16 +44,6 @@ const GameBoard = (() => {
     player1Name.player = '';
   };
 
-  const existingImageIndex = () => {
-    const indexOfX = [];
-    const indexOfO = [];
-    for (let i = 0; i < origBoard.length; i += 1) {
-      if (origBoard[i] === 'X') { indexOfX.push(i); }
-      if (origBoard[i] === 'O') { indexOfO.push(i); }
-    }
-    indexOfExistingMove = [indexOfX, indexOfO];
-  };
-
   const removeImageProperty = () => {
     arr.forEach((elem, index) => {
       if (elem) {
@@ -102,11 +74,11 @@ const GameBoard = (() => {
     category.querySelector('img');
     const img1 = category.querySelector('img');
     const img2 = category.querySelector('.second-img');
-    GameBoard.player1Name.imgLink = img1.getAttribute('src');
-    const link1 = GameBoard.player1Name.imgLink;
-    GameBoard.player2Name.imgLink = img2.getAttribute('src');
-    const link2 = GameBoard.player2Name.imgLink;
-    GameBoard.aiPlayer.imgLink = img2.getAttribute('src');
+    player1Name.imgLink = img1.getAttribute('src');
+    const link1 = player1Name.imgLink;
+    player2Name.imgLink = img2.getAttribute('src');
+    const link2 = player2Name.imgLink;
+    aiPlayer.imgLink = img2.getAttribute('src');
 
     removeImageProperty();
 
@@ -320,7 +292,6 @@ const GameBoard = (() => {
     swapTurn();
     return checkTie();
   };
-
   const turnClick = (e) => {
     if (player1Name.player.length > 0) {
       if (selectedMode.aiEasyMode) { easyMode(e); }
@@ -328,6 +299,7 @@ const GameBoard = (() => {
       if (selectedMode.aiHardMode) { hardMode(e); }
     }
   };
+
 
   const startGame = () => {
     document.querySelector('.endgame').style.display = 'none';
@@ -344,15 +316,7 @@ const GameBoard = (() => {
     });
   };
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    GameBoard.player1Name.player = e.target.player1.value;
-    GameBoard.player2Name.player = e.target.player2.value;
-    const displayPlayerName = document.querySelector('.player-text');
-    displayPlayerName.textContent = `${e.target.player1.value}'s turn`;
-    form.style.display = 'none';
-    GameBoard.startGame();
-  });
+  
 
   restart.forEach(btn => btn.addEventListener('click', startGame));
 
@@ -376,9 +340,9 @@ const GameBoard = (() => {
   });
 
   return {
-    player1Name,
-    player2Name,
-    aiPlayer,
+    // player1Name,
+    // player2Name,
+    // aiPlayer,
     startGame,
   };
 })();
