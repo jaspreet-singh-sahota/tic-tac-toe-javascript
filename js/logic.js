@@ -118,4 +118,4 @@ const minMaxAlgorithm = (border, player) => {
   return moves[bestMove];
 };
 
-export {}
+export { swapTurn }
