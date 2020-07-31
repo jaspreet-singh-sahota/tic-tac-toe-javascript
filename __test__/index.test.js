@@ -30,9 +30,11 @@ test('should check turn for player 2', () => {
   expect(turn(7, player2Name)).toEqual(["X", "X", "X", "O", "O", 6, 7, "O", 9]);
 })
 
-
-    
-
-    
-    
+test('Should end game status', () => {
+  const endGameStatus = (status) => {
+    const result = `${status}`;
+    return result;
+  };
+  expect(endGameStatus("It's a Tie")).toBe("It's a Tie")
+})        
     

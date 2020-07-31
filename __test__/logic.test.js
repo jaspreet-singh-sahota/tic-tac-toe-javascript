@@ -37,5 +37,3 @@ it('should minMaxAlgorithm', () => {
   let player2 = player2Name.player
   expect(minMaxAlgorithm(origBoard, player2)).toEqual({ "score": 10 })
 })
-
-
