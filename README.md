@@ -47,7 +47,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-In this project, I have build a Tic Tac Toe game. The project follows the lesson about Factory Functions and The Module Pattern so the main goal is to put into practice those concepts along with the main concepts of Object Oriented Programming. Particularly, classes/objects and how to access their methods and attributes.
+In this project, I have build a Tic Tac Toe game. The project follows the lesson about Factory Functions and The Module Pattern so the main goal is to put into practice those concepts along with the main concepts of Object Oriented Programming. Particularly, classes/objects, testing and how to access their methods and attributes.
 
 ### Features
 
@@ -75,6 +75,7 @@ This project was built using these technologies.
 * HTML
 * CSS
 * JavaScript
+* Jest
 
 ### Install
 
@@ -90,6 +91,10 @@ cd tic-tac-toe-javascript
 Now you can open `index.html` in your browser to see Super-TicTac-toe up and running.
 
 Enjoy playing it.
+
+### Testing
+
+- Jest
 
 <!-- CONTACT -->
 ## Authors
