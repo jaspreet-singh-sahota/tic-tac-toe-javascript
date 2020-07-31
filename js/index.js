@@ -278,6 +278,7 @@ const GameBoard = (() => {
   return {
     startGame,
     gameOver,
+    checkTie
   };
 })();
 

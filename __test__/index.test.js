@@ -30,6 +30,10 @@
 //   expect(turn(7, player2Name)).toEqual(["X", "X", "X", "O", "O", 6, 7, "O", 9]);
 // })
 
+const endGameStatus = (status) => {
+  const result = `${status}`;
+  return result;
+};
 
     
 
