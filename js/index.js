@@ -264,21 +264,20 @@ const GameBoard = (() => {
     });
   });
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    player1Name.player = e.target.player1.value;
-    player2Name.player = e.target.player2.value;
-    const displayPlayerName = document.querySelector('.player-text');
-    displayPlayerName.textContent = `${e.target.player1.value}'s turn`;
-    form.style.display = 'none';
-    GameBoard.startGame();
-  });
+  // form.addEventListener('submit', (e) => {
+  //   e.preventDefault();
+  //   player1Name.player = e.target.player1.value;
+  //   player2Name.player = e.target.player2.value;
+  //   const displayPlayerName = document.querySelector('.player-text');
+  //   displayPlayerName.textContent = `${e.target.player1.value}'s turn`;
+  //   form.style.display = 'none';
+  //   GameBoard.startGame();
+  // });
 
   return {
     startGame,
-    player1Name,
-    player2Name
+    gameOver
   };
 })();
 
-// export { GameBoard[player1Name], GameBoard.player2Name }
+export { GameBoard }
