@@ -280,6 +280,6 @@ const GameBoard = (() => {
     gameOver,
     checkTie
   };
-})();
+})()
 
-// export { GameBoard }
+
