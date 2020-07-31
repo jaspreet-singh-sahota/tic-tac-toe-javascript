@@ -277,7 +277,7 @@ const GameBoard = (() => {
   return {
     startGame,
     gameOver,
-    humanMode
+    checkTie
   };
 })();
 

@@ -1,5 +1,5 @@
 import { GameBoard } from '../js/index'
-import { player1Name, player2Name, checkWin, winningCombs } from '../js/logic'
+import { player1Name, player2Name, checkWin, checkAvailableMoves } from '../js/logic'
 
 player1Name.player = 'frank'
 player2Name.player = 'jaspreet'
@@ -35,18 +35,29 @@ const endGameStatus = (status) => {
   return result;
 };
 
-test('Should endgame status for tie', () => {
+test('Should check endgame status for tie', () => {
   expect(endGameStatus("It's a Tie")).toBe("It's a Tie")
 })   
 
-test('Should endgame status for player1 win', () => {
+test('Should check endgame status for player1 win', () => {
   const status = `${player1Name.player} won!` 
   expect(endGameStatus(status)).toBe("frank won!")
 }) 
 
-test('Should endgame status for playe2 win', () => {
+test('Should check endgame status for playe2 win', () => {
   const status = `${player2Name.player} won!` 
   expect(endGameStatus(status)).toBe("jaspreet won!")
 }) 
-    
+
+test('should check tie', () => {
+  const origBoard = ['X', 'X', 'O', 'O', 'O', 'X', 'X', 'O', 'X']
+  expect(checkTie()).toBe("It's a Tie")
+}) 
+
+const checkTie = () => {
+  const availableMoves = checkAvailableMoves();
+  if (availableMoves.length === 0) {
+    return endGameStatus("It's a Tie");
+  }
+};  
     
