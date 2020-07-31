@@ -276,7 +276,7 @@ const GameBoard = (() => {
 
   return {
     startGame,
-    gameOver
+    gameOver,
   };
 })();
 
