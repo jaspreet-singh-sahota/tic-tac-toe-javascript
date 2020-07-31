@@ -276,5 +276,9 @@ const GameBoard = (() => {
 
   return {
     startGame,
+    player1Name,
+    player2Name
   };
 })();
+
+// export { GameBoard[player1Name], GameBoard.player2Name }

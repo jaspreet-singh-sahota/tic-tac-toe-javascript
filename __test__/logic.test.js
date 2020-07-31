@@ -1,9 +1,4 @@
-import { swapTurn, checkWin,   } from '../js/logic'
-
-const player1Name = { player: 'frank', token: 'X', imgLink: '#' }
-const player2Name = { player: 'jaspreet', token: 'O', imgLink: '#' }
-let playerName 
-
+import { swapTurn, checkWin, player1Name, player2Name, playerName   } from '../js/logic'
 
 it ('should swapturn', () => {
   const currentPlayer = playerName ? player2Name : player1Name;
