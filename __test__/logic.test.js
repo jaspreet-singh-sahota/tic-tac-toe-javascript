@@ -22,6 +22,20 @@ it('should minMaxAlgorithm', () => {
   expect(checkAvailableMoves()).toBe[Number]
 })
 
+it('should minMaxAlgorithm', () => {
+  expect(minMaxAlgorithm(origBoard)).toBe[Number]
+})
 
+it('should minMaxAlgorithm', () => {
+  let origBoard = ['X', 'X', 'X', 'O', 'O', 6, 7, 8, 9]
+  let player2 = player2Name.player
+  expect(minMaxAlgorithm(origBoard, player2)).toEqual({ "score": 0 })
+})
+
+it('should minMaxAlgorithm', () => {
+  let origBoard = ['X', 'X', 'O', 'O', 'O', 'X', 'O', 'X', 'O']
+  let player2 = player2Name.player
+  expect(minMaxAlgorithm(origBoard, player2)).toEqual({ "score": 10 })
+})
 
 
