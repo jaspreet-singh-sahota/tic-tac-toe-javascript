@@ -1,4 +1,5 @@
-import { swapTurn, checkWin, player1Name, player2Name, playerName   } from '../js/logic'
+import { swapTurn, checkWin, player1Name, 
+  player2Name, playerName, checkAvailableMoves, minMaxAlgorithm, origBoard } from '../js/logic'
 
 it ('should swapturn', () => {
   const currentPlayer = playerName ? player2Name : player1Name;
@@ -11,3 +12,16 @@ it ('should checkwin', () => {
   let board = ['X','X','X','O','O', 6, 7, 8, 9]
   expect(checkWin(board,player1Name)).toEqual({ index: 0, player:'X', currentPlayer: player1Name.player })
 })
+
+it('should checkAvailableMoves', () => {
+  let board = ['X','X','O','O','O', 'X', 'O', 'X', 'O']
+  expect(checkAvailableMoves()).toEqual([])
+})
+
+it('should minMaxAlgorithm', () => {
+  expect(checkAvailableMoves()).toBe[Number]
+})
+
+
+
+

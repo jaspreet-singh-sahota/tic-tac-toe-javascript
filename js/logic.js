@@ -118,4 +118,5 @@ const minMaxAlgorithm = (border, player) => {
   return moves[bestMove];
 };
 
-export { swapTurn, checkWin, player1Name, player2Name, playerName  }
+export { swapTurn, checkWin, player1Name, player2Name, playerName,
+  checkAvailableMoves, origBoard, minMaxAlgorithm}
