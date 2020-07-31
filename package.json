@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "<!-- *** Thanks for checking out this README Template. If you have a suggestion that would *** make this better, please fork the repo and create a pull request or simply open *** an issue with the tag \"enhancement\". *** Thanks again! Now go create something AMAZING! :D -->",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "jest",
     "watch": "jest --watch"
@@ -20,6 +21,12 @@
   "homepage": "https://github.com/jaspreet-singh-sahota/tic-tac-toe-javascript#readme",
   "devDependencies": {
     "@babel/preset-env": "^7.10.4",
-    "jest": "^26.1.0"
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "jest": "^25.2.4"
+  },
+  "dependencies": {
+    "packagejson": "^1.0.1"
   }
 }

@@ -58,6 +58,7 @@ const checkAvailableMoves = () => origBoard.filter(elem => typeof elem === 'numb
 
 /* eslint-disable */
 const swapTurn = () => { playerName = !playerName; };
+
 const randomAIMove = () => {
 /* eslint-enable */
   const availableMoves = checkAvailableMoves();
@@ -118,5 +119,8 @@ const minMaxAlgorithm = (border, player) => {
   return moves[bestMove];
 };
 
-export { swapTurn, checkWin, player1Name, player2Name, playerName,
-  checkAvailableMoves, origBoard, minMaxAlgorithm, winningCombs}
+exports.swapTurn = swapTurn
+exports.checkWin = checkWin
+exports.checkAvailableMoves = checkAvailableMoves
+exports.origBoard = origBoard
+exports.minMaxAlgorithm = minMaxAlgorithm;

@@ -220,6 +220,7 @@ const GameBoard = (() => {
     swapTurn();
     return checkTie();
   };
+
   const turnClick = (e) => {
     if (player1Name.player.length > 0) {
       if (selectedMode.aiEasyMode) { easyMode(e); }
@@ -264,15 +265,15 @@ const GameBoard = (() => {
     });
   });
 
-  // form.addEventListener('submit', (e) => {
-  //   e.preventDefault();
-  //   player1Name.player = e.target.player1.value;
-  //   player2Name.player = e.target.player2.value;
-  //   const displayPlayerName = document.querySelector('.player-text');
-  //   displayPlayerName.textContent = `${e.target.player1.value}'s turn`;
-  //   form.style.display = 'none';
-  //   GameBoard.startGame();
-  // });
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    player1Name.player = e.target.player1.value;
+    player2Name.player = e.target.player2.value;
+    const displayPlayerName = document.querySelector('.player-text');
+    displayPlayerName.textContent = `${e.target.player1.value}'s turn`;
+    form.style.display = 'none';
+    GameBoard.startGame();
+  });
 
   return {
     startGame,
@@ -280,4 +281,4 @@ const GameBoard = (() => {
   };
 })();
 
-export { GameBoard }
+// export { GameBoard }
