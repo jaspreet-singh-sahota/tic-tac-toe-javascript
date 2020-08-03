@@ -220,6 +220,7 @@ const GameBoard = (() => {
     swapTurn();
     return checkTie();
   };
+
   const turnClick = (e) => {
     if (player1Name.player.length > 0) {
       if (selectedMode.aiEasyMode) { easyMode(e); }
@@ -276,5 +277,7 @@ const GameBoard = (() => {
 
   return {
     startGame,
+    gameOver,
+    checkTie,
   };
 })();
